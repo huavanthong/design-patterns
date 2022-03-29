@@ -41,6 +41,7 @@ Interface trong Go, giúp cho ta có thể implement được các methods theo 
 **Step 2:** Tạo các structure buidler() cho myclass của ta  
 **Step 3:** Implement các methods trong classBuilder   
 **Step 4:** Phải tạo một methods để initialize a object Builder  
+
 --------------------------------------------------------------------------------
 **Demo Builder Pattern in Go**
 ```go
@@ -83,6 +84,7 @@ func newClassBuilder() classBuilder {
 **Step 2:** Tạo classBuilder nằm trong myclass của ta để tạo các method builder.  
 **Step 3:** Implement các methods builder  
 **Step 4:** Phải tạo một method để tạo new object myclass từ classBuilder  
+
 --------------------------------------------------------------------------------
 **Demo Builder Pattern in Java**
 ```java
