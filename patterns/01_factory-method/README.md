@@ -2,7 +2,8 @@
 This tutorial help you understand about Factory Method pattern in Creational Patterns
 
 # Question
-* [How do you use a enum in Java?]()
+* [How do you use a enum in Java?](#enum)
+* [Do you understand the error missing a interface?]()
 
 # Answer Question
 ### Enum
@@ -12,9 +13,54 @@ enum PaymentType {
 	DebitCard;
 }
 ```
-More details: [here]()
+More details: [here](https://github.com/huavanthong/design-patterns/blob/master/patterns/01_factory-method/ex1_payment.java)
+### Missing a interface
+#### Context
+Để hiểu rõ issue này, ta bắt đầu Context như sau:
+```go
+type decodeImage struct {
+	image string
+}
 
+type GifReader struct {}
 
+func (g *GifReader) getDecodeImage(image string) DecodeImage {
+
+	return ????
+}
+
+func GetDecodeMethod(t DecodeType) DecodeMethod {
+	switch t {
+	case GIF:
+		return new(GifReader) // =====> Error: Missing a interface unimplemented
+        ...
+    }
+```
+#### Solution
+Để fix được error này, chúng ta phải làm như sau:
+```go
+type GifReader struct {
+    next decodeImage
+}
+
+func (g *GifReader) getDecodeImage(image string) DecodeImage {
+
+	return &g.next
+}
+
+func GetDecodeMethod(t DecodeType) DecodeMethod {
+	switch t {
+	case GIF:
+		return new(GifReader) // Fix it
+        ...
+    }
+}
+```
+More details: [here](https://github.com/huavanthong/design-patterns/blob/master/patterns/01_factory-method/ex2_imageDecoder.go)
+#### Conclusion
+* Khi tạo các methods trong Interface, chúng ta phải implement hết các methods đó.
+* Để có bắt đầu return type là **decodeImage**, chúng ta có thể tạo một member: next decodeImage. Để fix it.
+* Lưu ý cách tạo new object trong pattern này.
 # Experience
 ### Purpose for Builder Patterns
 Câu hỏi đặt ra là khi nào chúng ta nên sử dụng các Factory Method Pattern trong design của chúng ta.
@@ -89,7 +135,7 @@ func getMethods(t methodType) Methods {
 	}
 }
 ```
-More details: [here]()
+More details: [here](https://github.com/huavanthong/design-patterns/tree/master/patterns/01_factory-method)
 
 ## Java programming
 Các step để implement một Factory Methods.
@@ -148,6 +194,5 @@ class HandleMethod2 implements Methods {
         ..
     }
 }
-
-
 ```
+More details: [here](https://github.com/huavanthong/design-patterns/tree/master/patterns/01_factory-method)

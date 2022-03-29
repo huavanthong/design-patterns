@@ -19,8 +19,7 @@ type NutritionFacts interface {
 }
 
 // Step 3: Create builder for NutrionFacts
-// ===> Define t?t c? c?c methods cho vi?c kh?i t?o m?t object.
-// 		Ph??ng ph?p n?y g?i l? Builder Pattern
+// ===> Define all methods to initialize a object in Builder class.
 type NutritionFactsBuilder interface {
 	Serving(servingSize int, servings int) NutritionFactsBuilder
 	Calories(calories int) NutritionFactsBuilder
@@ -30,8 +29,7 @@ type NutritionFactsBuilder interface {
 }
 
 // Step 4: Implement methods for builder
-//		===> Kinh nghi?m cho th?y, ph?i implement h?t t?t c? c?c interface th? m?i kh?ng
-//			 b? b?o l?i v? vi?c ch?a implement h?t c?c methods trong interface
+//		===> We must implement all methods in a interface.
 func (nutri *nutritionFacts) Serving(servingSize int, servings int) NutritionFactsBuilder {
 	nutri.serveringSize = servingSize
 	nutri.serverings = servings
