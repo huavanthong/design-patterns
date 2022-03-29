@@ -3,12 +3,12 @@ package main;
 import java.util.Enumeration;
 import java.util.Vector;
 
-//Step 1: Create a interface Alarm Listener
+// Step 1: Implement Observer
 interface AlarmListener {
     void alarm();
 }
 
-//Step 2: Implement a Sensor sytem, where register senor
+// Step 2: Implement Subject
 class SensorSystem {
     // Step 2.1: Create a vector mapping, we store all sensor
     private Vector listeners = new Vector();
@@ -24,20 +24,21 @@ class SensorSystem {
     }
 }
 
-//Step 3: Implement interface for functions 
+//Step 3: Implement View from Observer
 class Lighting implements AlarmListener {
     public void alarm() {
         System.out.println("lights up");
     }
 }
 
+//Step 3: Another View
 class Gates implements AlarmListener {
     public void alarm() {
         System.out.println("gates close");
     }
 }
 
-//Step 3: Create a class contain manys functions/feature operate on sensor
+//Step 3: This is a class inside the third View
 class CheckList {
  // Template Method design pattern
     public void byTheNumbers() {
@@ -59,6 +60,7 @@ class CheckList {
     }
 }
 
+//Step 3: Another View
 //class inherit.
 //type inheritance
 class Surveillance extends CheckList implements AlarmListener {

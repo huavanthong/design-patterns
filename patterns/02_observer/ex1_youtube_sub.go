@@ -2,10 +2,12 @@ package main
 
 import "fmt"
 
+// Step 1: Consider user is Observer
 type Observer interface {
 	update(interface{})
 }
 
+// Step 2: Consider youtube channel is Subject
 type Subject interface {
 	registerObserver(obs Observer)
 	removeObserver(obs Observer)

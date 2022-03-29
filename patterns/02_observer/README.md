@@ -2,6 +2,9 @@
 This tutorial help you understand about Observe pattern in Behavioral Patterns
 
 # Question
+* [Why we consider Youtube channels is a subject in ex1_youtube_sub.go?]()
+* []
+
 
 # Answer Question
 
@@ -20,4 +23,5 @@ Các bước để implement Observer Pattern như sau:
 **Step 3:** Tạo các structure để handle cho từng methods
 **Step 4:** Implement tất cả methods trong từng handler của nó
 **Step 5:** Implement switch case to select the optional method
+
 -----------------------------------------------------------------------
