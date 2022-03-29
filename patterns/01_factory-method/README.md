@@ -75,6 +75,7 @@ Các step để implement một Factory Methods.
 **Step 3:** Tạo các structure để handle cho từng methods.  
 **Step 4:** Implement tất cả methods trong từng handler của nó.  
 **Step 5:** Implement switch case to select the optional method.  
+
 --------------------------------------------------------------------------------
 **Demo Factory Methods Pattern in Go**
 ```go
@@ -145,6 +146,7 @@ Các step để implement một Factory Methods.
 
 **Step 1:** Sử dụng Interface để tạo các methods trong cung cấp cho các Handle còn lại.  
 **Step 2:** Implement các Interface trong nó.  
+
 --------------------------------------------------------------------------------
 **Demo Factory Methods Pattern in Java**
 ```java
