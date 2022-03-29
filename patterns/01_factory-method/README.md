@@ -66,13 +66,15 @@ More details: [here](https://github.com/huavanthong/design-patterns/blob/master/
 Câu hỏi đặt ra là khi nào chúng ta nên sử dụng các Factory Method Pattern trong design của chúng ta.
 * Khi ta cần chọn các phương thức xử lý trong logic code của chúng ta.
 * Ta phải tạo đối tượng trung gian để có thể refer đến các phương thức mà ta muốn xử lý.
-## Go programming
-Các step để implement một Factory Methods.
-**Step 1:** Tạo các common function cho mấy class sử dụng interface
-**Step 2:** Tạo table constant để ta có thể refer đến methods mà ta muốn xử lý
-**Step 3:** Tạo các structure để handle cho từng methods
-**Step 4:** Implement tất cả methods trong từng handler của nó
-**Step 5:** Implement switch case to select the optional method
+## Go programming  
+
+Các step để implement một Factory Methods.  
+
+**Step 1:** Tạo các common function cho mấy class sử dụng interface.  
+**Step 2:** Tạo table constant để ta có thể refer đến methods mà ta muốn xử lý.  
+**Step 3:** Tạo các structure để handle cho từng methods.  
+**Step 4:** Implement tất cả methods trong từng handler của nó.  
+**Step 5:** Implement switch case to select the optional method.  
 --------------------------------------------------------------------------------
 **Demo Factory Methods Pattern in Go**
 ```go
@@ -138,9 +140,11 @@ func getMethods(t methodType) Methods {
 More details: [here](https://github.com/huavanthong/design-patterns/tree/master/patterns/01_factory-method)
 
 ## Java programming
+
 Các step để implement một Factory Methods.
-**Step 1:** Sử dụng Interface để tạo các methods trong cung cấp cho các Handle còn lại.
-**Step 2:** Implement các Interface trong nó.
+
+**Step 1:** Sử dụng Interface để tạo các methods trong cung cấp cho các Handle còn lại.  
+**Step 2:** Implement các Interface trong nó.  
 --------------------------------------------------------------------------------
 **Demo Factory Methods Pattern in Java**
 ```java

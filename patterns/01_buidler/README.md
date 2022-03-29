@@ -33,13 +33,14 @@ Câu hỏi đặt ra là khi nào chúng ta nên sử dụng các Builder Patter
 * Khi ta cần khởi tạo một class với nhiều paramters
 * Khi ta muốn quản lý việc khởi tạo một class với các parameters theo mục đích cụ thể.
 ## Go programming
-Đối với Go programming, để tạo Builder Pattern, thì ta cần phải hiểu về keyword: "Interface".  
-Interface trong Go, giúp cho ta có thể implement được các methods theo các bước sau:
 
-**Step 1:** Tạo một structure với các members
-**Step 2:** Tạo các structure buidler() cho myclass của ta
-**Step 3:** Implement các methods trong classBuilder 
-**Step 4:** Phải tạo một methods để initialize a object Builder
+Đối với Go programming, để tạo Builder Pattern, thì ta cần phải hiểu về keyword: "Interface".  
+Interface trong Go, giúp cho ta có thể implement được các methods theo các bước sau:  
+
+**Step 1:** Tạo một structure với các members  
+**Step 2:** Tạo các structure buidler() cho myclass của ta  
+**Step 3:** Implement các methods trong classBuilder   
+**Step 4:** Phải tạo một methods để initialize a object Builder  
 --------------------------------------------------------------------------------
 **Demo Builder Pattern in Go**
 ```go
@@ -77,10 +78,11 @@ func newClassBuilder() classBuilder {
 
 ## Java programming
 Đối với Java programming, để tạo Builder Pattern, ta phải hiểu cách tạo một class Builder nằm trong class lớn.  
-**Step 1:** Tạo một myclass chứa các member cần thiết.
-**Step 2:** Tạo classBuilder nằm trong myclass của ta để tạo các method builder.
-**Step 3:** Implement các methods builder
-**Step 4:** Phải tạo một method để tạo new object myclass từ classBuilder
+
+**Step 1:** Tạo một myclass chứa các member cần thiết.  
+**Step 2:** Tạo classBuilder nằm trong myclass của ta để tạo các method builder.  
+**Step 3:** Implement các methods builder  
+**Step 4:** Phải tạo một method để tạo new object myclass từ classBuilder  
 --------------------------------------------------------------------------------
 **Demo Builder Pattern in Java**
 ```java
