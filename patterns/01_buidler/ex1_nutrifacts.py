@@ -140,22 +140,29 @@ if __name__ == "__main__":
     builder object.
     """
 
+    # Step 1: Thuê người giám sát vào công ty
     director = Director()
+    # Step 2: Công ty có sẵn một Concrete Builder 1.
     builder = ConcreteBuilder1()
+    # Step 3: Giao những gì công ty có, đưa cho người giám sát
     director.builder = builder
 
+    # Step 4: Giám sát có thể tạo product với minimal
     print("Standard basic product: ")
     director.build_minimal_viable_product()
     builder.product.list_parts()
 
     print("\n")
 
+    # Step 5: Giám sát có trình độ, đã build được product với full feature
     print("Standard full featured product: ")
     director.build_full_featured_product()
     builder.product.list_parts()
 
     print("\n")
 
+    # Step 6: Giám sát hiểu được nhu cầu thay đổi của Customer.
+    #         Nên đã build các feature linh động cho Customer tự build.
     # Remember, the Builder pattern can be used without a Director class.
     print("Custom product: ")
     builder.servings(270, 80)
