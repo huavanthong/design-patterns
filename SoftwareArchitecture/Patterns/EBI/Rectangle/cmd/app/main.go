@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/example/project/boundary"
-	"github.com/example/project/interactor"
+	"github.com/huavanthong/design-patterns/SoftwareArchitecture/Patterns/EBI/Rectangle/internal/boundary"
+	"github.com/huavanthong/design-patterns/SoftwareArchitecture/Patterns/EBI/Rectangle/internal/interactor"
 )
 
 func main() {
