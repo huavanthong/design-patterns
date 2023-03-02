@@ -14,9 +14,9 @@ Go to the official documentation_
 
 # Project structure 
 ```lua
-/your-project-name
-|--/cmd
-|  |--/app
+your-project-name/
+├──/cmd
+│  ├── app
 |  |  |--main.go
 |--/internal
 |  |--/entity
@@ -35,4 +35,37 @@ Go to the official documentation_
 |--/vendor
 |--go.mod
 |--go.sum
+```
+
+Sau đó, ta đã hỏi ChatGPT lại lần nữa. Và nó đưa ra project structure như sau:
+```lua
+myapp/
+├── app/
+│   ├── boundary/
+│   │   ├── boundary.go
+│   │   └── boundary_test.go
+│   ├── entity/
+│   │   ├── entity.go
+│   │   └── entity_test.go
+│   ├── interactor/
+│   │   ├── interactor.go
+│   │   └── interactor_test.go
+│   └── main.go
+├── config/
+│   └── config.go
+├── repository/
+│   ├── repository.go
+│   └── repository_test.go
+├── go.mod
+└── go.sum
+
+```
+Và ta đã hỏi tại sao lại không để  tất cả các code vào trong folder internal như câu trả lời trước???  
+ChatGPT đã trả lời:
+```
+Thư mục internal/ thường được sử dụng để chứa code bên trong một module, nhằm hạn chế sự truy cập vào code bên trong module từ bên ngoài. Tuy nhiên, khi sử dụng kiến trúc EBI, chúng ta thường muốn tách biệt các lớp Boundary, Entity và Interactor để giảm sự phụ thuộc giữa chúng, giúp code trở nên dễ dàng bảo trì và mở rộng hơn. Việc đặt các file của từng lớp trong các thư mục riêng biệt giúp người phát triển dễ dàng tìm kiếm và thay đổi code của từng lớp mà không ảnh hưởng đến các lớp khác.
+
+Ngoài ra, việc sử dụng thư mục internal/ cũng có thể gây ra một số vấn đề trong quá trình phát triển và quản lý module. Ví dụ, các dependency sẽ không thể truy cập vào code trong thư mục internal/, điều này có thể gây khó khăn trong việc quản lý dependency của project.
+
+Vì vậy, khi sử dụng kiến trúc EBI, thường không cần sử dụng thư mục internal/. Thay vào đó, chúng ta có thể sử dụng cơ chế access modifier của Golang (public và private) để quản lý quyền truy cập vào các thành phần của module.
 ```

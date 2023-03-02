@@ -1,3 +1,3 @@
-module "github.com/huavanthong/design-patterns/SoftwareArchitecture/Patterns/EBI/Rectangle"
+module github.com/huavanthong/design-patterns/SoftwareArchitecture/Patterns/EBI/Rectangle/cmd/app
 
-go 1.16
+go 1.18

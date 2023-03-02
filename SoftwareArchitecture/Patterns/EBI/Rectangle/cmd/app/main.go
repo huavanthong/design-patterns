@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-
 	"github.com/huavanthong/design-patterns/SoftwareArchitecture/Patterns/EBI/Rectangle/internal/boundary"
 	"github.com/huavanthong/design-patterns/SoftwareArchitecture/Patterns/EBI/Rectangle/internal/interactor"
 )
@@ -17,7 +16,7 @@ func main() {
 		Height: 20,
 	}
 
-	output, err := interactor.Calculate(input)
+	output, err := interactor.Calculate(input)s
 	if err != nil {
 		fmt.Printf("Error: %s\n", err.Error())
 	} else {
