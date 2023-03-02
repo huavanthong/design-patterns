@@ -11,3 +11,28 @@ This repo is just the source for the website.
 
 Go to the official documentation_
 ---------------------------------
+
+# Project structure 
+```lua
+/your-project-name
+|--/cmd
+|  |--/app
+|  |  |--main.go
+|--/internal
+|  |--/entity
+|  |  |--entity.go
+|  |--/boundary
+|  |  |--boundary.go
+|  |--/interactor
+|  |  |--interactor.go
+|--/pkg
+|  |--/database
+|  |  |--database.go
+|  |--/utils
+|  |  |--utils.go
+|--/config
+|  |--config.go
+|--/vendor
+|--go.mod
+|--go.sum
+```
