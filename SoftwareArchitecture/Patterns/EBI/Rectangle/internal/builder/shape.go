@@ -1,4 +1,4 @@
-package entity
+package builder
 
 type Shape struct {
 	dimensions Dimensions

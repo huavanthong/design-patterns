@@ -30,8 +30,8 @@ func (b *RectangleBoundary) Calculate(input *CircleInput) (*CircleOutput, error)
 	}
 
 	output := &CircleOutput{
-		Area:      rect.Width * rect.Height,
-		Perimeter: 2 * (rect.Width + rect.Height),
+		Area:      rect.Radius * rect.Radius,
+		Perimeter: 2 * (rect.Radius + rect.Radius),
 	}
 
 	return output, nil
