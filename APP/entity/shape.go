@@ -1,4 +1,4 @@
-package main
+package entity
 
 import (
 	"github.com/huavanthong/design-patterns/APP/common"
