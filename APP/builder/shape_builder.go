@@ -1,5 +1,5 @@
 // File shape_builder.go
-package main
+package builder
 
 import (
 	"github.com/huavanthong/design-patterns/APP/common"

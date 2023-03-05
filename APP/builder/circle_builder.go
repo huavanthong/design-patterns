@@ -1,4 +1,4 @@
-package main
+package builder
 
 import (
 	"github.com/huavanthong/design-patterns/APP/common"
