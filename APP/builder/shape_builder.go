@@ -1,13 +1,6 @@
 // File shape_builder.go
 package main
 
-type iShapeBuilder interface {
-	SetDimensions(dimensions Dimensions)
-	SetPosition(position Position)
-	SetColor(color Color)
-	Build() Shape
-}
-
 type Dimensions struct {
 	Width  float64
 	Height float64
@@ -23,6 +16,13 @@ type Color struct {
 	R uint8
 	G uint8
 	B uint8
+}
+
+type iShapeBuilder interface {
+	SetDimensions(dimensions Dimensions)
+	SetPosition(position Position)
+	SetColor(color Color)
+	Build() Shape
 }
 
 func getShapeBuilder(builderType string) iShapeBuilder {

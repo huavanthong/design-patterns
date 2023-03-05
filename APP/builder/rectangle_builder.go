@@ -9,8 +9,8 @@ func NewRectangleBuilder() *RectangleBuilder {
 }
 
 func (rb *RectangleBuilder) SetDimensions(dimensions Dimensions) {
-	rb.shape.width = dimensions.width
-	rb.shape.height = dimensions.height
+	rb.shape.width = dimensions.Width
+	rb.shape.height = dimensions.Height
 }
 
 func (rb *RectangleBuilder) SetPosition(position Position) {
@@ -21,6 +21,6 @@ func (rb *RectangleBuilder) SetColor(color Color) {
 	rb.shape.color = color
 }
 
-func (rb *RectangleBuilder) Build() Shape {
+func (rb *RectangleBuilder) Build() *Rectangle {
 	return rb.shape
 }

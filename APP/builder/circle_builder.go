@@ -9,7 +9,7 @@ func NewCircleBuilder() *CircleBuilder {
 }
 
 func (cb *CircleBuilder) SetDimensions(dimensions Dimensions) {
-	cb.shape.radius = dimensions.width / 2 // assuming width and height are the same
+	cb.shape.radius = dimensions.Width / 2 // assuming width and height are the same
 }
 
 func (cb *CircleBuilder) SetPosition(position Position) {
@@ -20,6 +20,6 @@ func (cb *CircleBuilder) SetColor(color Color) {
 	cb.shape.color = color
 }
 
-func (cb *CircleBuilder) Build() Shape {
+func (cb *CircleBuilder) Build() *Circle {
 	return cb.shape
 }

@@ -16,20 +16,20 @@ type CircleOutput struct {
 }
 
 // circle_boundary.go
-type RectangleBoundary struct{}
+type CircleBoundary struct{}
 
-func (b *RectangleBoundary) Calculate(input *CircleInput) (*CircleOutput, error) {
+func (b *CircleBoundary) Calculate(input *CircleInput) (*CircleOutput, error) {
 	if input.Radius <= 0 {
 		return nil, fmt.Errorf("Invalid input")
 	}
 
 	rect := &Circle{
-		Radius: input.Radius,
+		radius: input.Radius,
 	}
 
 	output := &CircleOutput{
-		Area:      rect.Radius * rect.Radius,
-		Perimeter: 2 * (rect.Radius + rect.Radius),
+		Area:      rect.radius * rect.radius,
+		Perimeter: 2 * (rect.radius + rect.radius),
 	}
 
 	return output, nil

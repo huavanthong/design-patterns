@@ -9,8 +9,7 @@ func main() {
 	rectangleBuilder := NewRectangleBuilder()
 
 	// Set dimensions
-	rectangleBuilder.SetWidth(10)
-	rectangleBuilder.SetHeight(5)
+	rectangleBuilder.SetDimensions(Dimensions{Width: 10, Height: 5, Radius: 5})
 
 	// Set position
 	rectangleBuilder.SetPosition(Position{X: 0, Y: 0})
