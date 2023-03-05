@@ -1,9 +1,8 @@
 // rectangle.go
-package main
+package entity
 
 import (
 	"fmt"
-	"math"
 
 	"github.com/huavanthong/design-patterns/APP/common"
 )
@@ -16,16 +15,44 @@ type Rectangle struct {
 	borderSize int
 }
 
-func (r *Rectangle) Draw() {
-	fmt.Printf("Drawing a rectangle with width %v, height %v, position %v, color %v, and border size %v\n", r.width, r.height, r.position, r.color, r.borderSize)
+// Constructor
+func NewRectangle(width float64, height float64, position common.Position, color common.Color, borderSize int) *Rectangle {
+	return &Rectangle{width: width, height: height, position: position, color: color, borderSize: borderSize}
 }
 
-func (r *Rectangle) SetDimensions(dimensions common.Dimensions) {
-	r.width = dimensions.Width
-	r.height = dimensions.Height
+// Getter methods
+
+func (r *Rectangle) Width() float64 {
+	return r.width
 }
 
-func (r *Rectangle) SetPosition(position common.osition) {
+func (r *Rectangle) Height() float64 {
+	return r.height
+}
+
+func (r *Rectangle) Position() common.Position {
+	return r.position
+}
+
+func (r *Rectangle) Color() common.Color {
+	return r.color
+}
+
+func (r *Rectangle) BorderSize() int {
+	return r.borderSize
+}
+
+// Setter methods
+
+func (r *Rectangle) SetWidth(width float64) {
+	r.width = width
+}
+
+func (r *Rectangle) SetHeight(height float64) {
+	r.height = height
+}
+
+func (r *Rectangle) SetPosition(position common.Position) {
 	r.position = position
 }
 
@@ -41,33 +68,6 @@ func (r *Rectangle) GetArea() float64 {
 	return r.width * r.height
 }
 
-type Circle struct {
-	radius     float64
-	position   Position
-	color      Color
-	borderSize int
-}
-
-func (c *Circle) Draw() {
-	fmt.Printf("Drawing a circle with radius %v, position %v, color %v, and border size %v\n", c.radius, c.position, c.color, c.borderSize)
-}
-
-func (c *Circle) SetDimensions(dimensions Dimensions) {
-	c.radius = dimensions.Radius
-}
-
-func (c *Circle) SetPosition(position Position) {
-	c.position = position
-}
-
-func (c *Circle) SetColor(color Color) {
-	c.color = color
-}
-
-func (c *Circle) SetBorderSize(borderSize int) {
-	c.borderSize = borderSize
-}
-
-func (c *Circle) GetArea() float64 {
-	return math.Pi * c.radius * c.radius
+func (r *Rectangle) Draw() {
+	fmt.Printf("Drawing a rectangle with width %v, height %v, position %v, color %v, and border size %v\n", r.width, r.height, r.position, r.color, r.borderSize)
 }

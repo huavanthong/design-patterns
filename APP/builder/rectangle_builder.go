@@ -14,18 +14,18 @@ func NewRectangleBuilder() *RectangleBuilder {
 }
 
 func (rb *RectangleBuilder) SetDimensions(dimensions common.Dimensions) {
-	rb.shape.width = dimensions.Width
-	rb.shape.height = dimensions.Height
+	rb.shape.SetWidth(dimensions.Width)
+	rb.shape.SetHeight(dimensions.Height)
 }
 
 func (rb *RectangleBuilder) SetPosition(position common.Position) {
-	rb.shape.position = position
+	rb.shape.SetPosition(position)
 }
 
 func (rb *RectangleBuilder) SetColor(color common.Color) {
-	rb.shape.color = color
+	rb.shape.SetColor(color)
 }
 
-func (rb *RectangleBuilder) Build() *entity.Rectangle {
+func (rb *RectangleBuilder) Build() entity.Shape {
 	return rb.shape
 }

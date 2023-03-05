@@ -14,17 +14,17 @@ func NewCircleBuilder() *CircleBuilder {
 }
 
 func (cb *CircleBuilder) SetDimensions(dimensions common.Dimensions) {
-	cb.shape.radius = dimensions.Width / 2 // assuming width and height are the same
+	cb.shape.SetRadius(dimensions.Width / 2) // assuming width and height are the same
 }
 
 func (cb *CircleBuilder) SetPosition(position common.Position) {
-	cb.shape.position = position
+	cb.shape.SetPosition(position)
 }
 
 func (cb *CircleBuilder) SetColor(color common.Color) {
-	cb.shape.color = color
+	cb.shape.SetColor(color)
 }
 
-func (cb *CircleBuilder) Build() *entity.Circle {
+func (cb *CircleBuilder) Build() entity.Shape {
 	return cb.shape
 }
