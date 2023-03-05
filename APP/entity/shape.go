@@ -1,7 +1,11 @@
 package main
 
+import (
+	"github.com/huavanthong/design-patterns/APP/common"
+)
+
 type Shape struct {
-	dimensions Dimensions
-	position   Position
-	color      Color
+	dimensions common.Dimensions
+	position   common.Position
+	color      common.Color
 }

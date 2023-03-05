@@ -4,13 +4,15 @@ package main
 import (
 	"fmt"
 	"math"
+
+	"github.com/huavanthong/design-patterns/APP/common"
 )
 
 type Rectangle struct {
 	width      float64
 	height     float64
-	position   Position
-	color      Color
+	position   common.Position
+	color      common.Color
 	borderSize int
 }
 
@@ -18,16 +20,16 @@ func (r *Rectangle) Draw() {
 	fmt.Printf("Drawing a rectangle with width %v, height %v, position %v, color %v, and border size %v\n", r.width, r.height, r.position, r.color, r.borderSize)
 }
 
-func (r *Rectangle) SetDimensions(dimensions Dimensions) {
+func (r *Rectangle) SetDimensions(dimensions common.Dimensions) {
 	r.width = dimensions.Width
 	r.height = dimensions.Height
 }
 
-func (r *Rectangle) SetPosition(position Position) {
+func (r *Rectangle) SetPosition(position common.osition) {
 	r.position = position
 }
 
-func (r *Rectangle) SetColor(color Color) {
+func (r *Rectangle) SetColor(color common.Color) {
 	r.color = color
 }
 

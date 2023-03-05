@@ -1,27 +1,14 @@
 // File shape_builder.go
 package main
 
-type Dimensions struct {
-	Width  float64
-	Height float64
-	Radius float64
-}
-
-type Position struct {
-	X float64
-	Y float64
-}
-
-type Color struct {
-	R uint8
-	G uint8
-	B uint8
-}
+import (
+	"github.com/huavanthong/design-patterns/APP/common"
+)
 
 type iShapeBuilder interface {
-	SetDimensions(dimensions Dimensions)
-	SetPosition(position Position)
-	SetColor(color Color)
+	SetDimensions(dimensions common.Dimensions)
+	SetPosition(position common.Position)
+	SetColor(color common.Color)
 	Build() Shape
 }
 
