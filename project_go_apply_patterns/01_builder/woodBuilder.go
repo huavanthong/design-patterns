@@ -5,7 +5,7 @@ type woodBuilder struct {
 	quality string
 }
 
-func newWoodBuilder() *woodBuilder {
+func NewWoodBuilder() *woodBuilder {
 	return &woodBuilder{}
 }
 

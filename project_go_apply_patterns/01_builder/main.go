@@ -5,7 +5,7 @@ import "fmt"
 func main() {
 	normalBuilder := getBuilder("normal")
 	iglooBuilder := getBuilder("igloo")
-	woodBuilder := getBuilder("wood")
+	woodBuilder := NewWoodBuilder()
 
 	director := newDirector(normalBuilder)
 	normalHouse := director.buildHouse()
