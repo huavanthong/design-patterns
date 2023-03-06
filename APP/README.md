@@ -1,4 +1,7 @@
 # Project Structure
+```lua
+├── common/
+│   ├── common.go
 ├── entity/
 │   ├── rectangle.go
 │   └── circle.go
@@ -20,4 +23,10 @@
 │   ├── rectangle_builder.go
 │   └── circle_builder.go
 │
-├── main.go
+├── repository/
+│   ├── rectangle_repository.go
+│   └── circle_repository.go
+│
+├── go.mod
+└── main.go
+```

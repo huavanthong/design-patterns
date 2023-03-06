@@ -1,7 +1,11 @@
 package boundary
 
 import (
+	"fmt"
+
+	"github.com/huavanthong/design-patterns/APP/builder"
 	"github.com/huavanthong/design-patterns/APP/entity"
+	"github.com/huavanthong/design-patterns/APP/interactor"
 )
 
 // RectangleBoundary is the boundary for Rectangle.
@@ -45,7 +49,7 @@ func (rb *RectangleBoundary) GetRectangle(input GetRectangleInput) (*entity.Rect
 
 // UpdateRectangle updates a rectangle.
 func (rb *RectangleBoundary) UpdateRectangle(input UpdateRectangleInput) (*entity.Rectangle, error) {
-	rectangleBuilder := NewRectangleBuilder()
+	rectangleBuilder := builder.NewRectangleBuilder()
 	rectangleBuilder.SetID(input.ID)
 	rectangleBuilder.SetName(input.Name)
 	rectangleBuilder.SetWidth(input.Width)
@@ -69,4 +73,26 @@ func (rb *RectangleBoundary) DeleteRectangle(input DeleteRectangleInput) error {
 	}
 
 	return nil
+}
+
+// CalculateRectangleArea calculates the area of the rectangle.
+func CalculateRectangleArea(rectangle *entity.Rectangle) float64 {
+	return rectangle.Width * rectangle.Height
+}
+
+// CalculateRectanglePerimeter calculates the perimeter of the rectangle.
+func CalculateRectanglePerimeter(rectangle *entity.Rectangle) float64 {
+	return 2 * (rectangle.Width + rectangle.Height)
+}
+
+// SuccessRectangleBoundary is the success output method.
+func (rb *RectangleBoundary) SuccessRectangleBoundary(output SuccessRectangleOutput) {
+	fmt.Printf("Rectangle: %+v\n", output.Rectangle)
+	fmt.Printf("Area: %f\n", output.Area)
+	fmt.Printf("Perimeter: %f\n", output.Perimeter)
+}
+
+// ErrorRectangleBoundary is the error output method.
+func (rb *RectangleBoundary) ErrorRectangleBoundary(err error) {
+	fmt.Printf("Error: %s\n", err)
 }
