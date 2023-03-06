@@ -26,5 +26,5 @@ func (cb *CircleBuilder) SetColor(color common.Color) {
 }
 
 func (cb *CircleBuilder) Build() entity.Shape {
-	return cb.shape
+	return cb.shape.Shape
 }

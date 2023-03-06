@@ -1,16 +1,16 @@
 package main
 
 type director struct {
-	builder iBuilder
+	builder IBuilder
 }
 
-func newDirector(b iBuilder) *director {
+func newDirector(b IBuilder) *director {
 	return &director{
 		builder: b,
 	}
 }
 
-func (d *director) setBuilder(b iBuilder) {
+func (d *director) setBuilder(b IBuilder) {
 	d.builder = b
 }
 

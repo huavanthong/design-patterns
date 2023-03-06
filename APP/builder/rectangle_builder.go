@@ -27,5 +27,5 @@ func (rb *RectangleBuilder) SetColor(color common.Color) {
 }
 
 func (rb *RectangleBuilder) Build() entity.Shape {
-	return rb.shape
+	return rb.shape.Shape
 }

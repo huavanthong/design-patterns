@@ -6,14 +6,14 @@ import (
 	"github.com/huavanthong/design-patterns/APP/entity"
 )
 
-type iShapeBuilder interface {
+type IShapeBuilder interface {
 	SetDimensions(dimensions common.Dimensions)
 	SetPosition(position common.Position)
 	SetColor(color common.Color)
 	Build() entity.Shape
 }
 
-func getShapeBuilder(builderType string) iShapeBuilder {
+func GetShapeBuilder(builderType string) IShapeBuilder {
 	if builderType == "Rectangle" {
 		return &RectangleBuilder{}
 	}

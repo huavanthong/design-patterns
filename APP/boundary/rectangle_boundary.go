@@ -3,96 +3,115 @@ package boundary
 import (
 	"fmt"
 
-	"github.com/huavanthong/design-patterns/APP/builder"
 	"github.com/huavanthong/design-patterns/APP/entity"
-	"github.com/huavanthong/design-patterns/APP/interactor"
 )
 
-// RectangleBoundary is the boundary for Rectangle.
+// RectangleBoundary defines the boundary context for Rectangle.
 type RectangleBoundary struct {
-	interactor interactor.RectangleInteractor
+	input  RectangleInput
+	output RectangleOutput
 }
 
-// NewRectangleBoundary creates a new RectangleBoundary.
-func NewRectangleBoundary(interactor interactor.RectangleInteractor) *RectangleBoundary {
+// NewRectangleBoundary is a factory function
+// that it returns a new instance of RectangleBoundary.
+func NewRectangleBoundary(input RectangleInput, output RectangleOutput) *RectangleBoundary {
 	return &RectangleBoundary{
-		interactor: interactor,
+		input:  input,
+		output: output,
 	}
 }
 
 // CreateRectangle creates a rectangle.
 func (rb *RectangleBoundary) CreateRectangle(input CreateRectangleInput) (*entity.Rectangle, error) {
-	rectangleBuilder := NewRectangleBuilder()
-	rectangleBuilder.SetName(input.Name)
-	rectangleBuilder.SetWidth(input.Width)
-	rectangleBuilder.SetHeight(input.Height)
-	rectangleBuilder.SetPosition(input.Position)
-	rectangleBuilder.SetColor(input.Color)
-
-	rectangle, err := rb.interactor.CreateRectangle(rectangleBuilder)
+	rectangle, err := rb.input.CreateRectangle(input)
 	if err != nil {
+		rb.output.ErrorRectangle(err)
 		return nil, err
 	}
+
+	area := CalculateRectangleArea(rectangle)
+	perimeter := CalculateRectanglePerimeter(rectangle)
+
+	rb.output.SuccessRectangle(SuccessRectangleOutput{
+		Rectangle: rectangle,
+		Area:      area,
+		Perimeter: perimeter,
+	})
 
 	return rectangle, nil
 }
 
-// GetRectangle gets a rectangle.
+// GetRectangle gets a rectangle by ID.
 func (rb *RectangleBoundary) GetRectangle(input GetRectangleInput) (*entity.Rectangle, error) {
-	rectangle, err := rb.interactor.GetRectangle(input.ID)
+	rectangle, err := rb.input.GetRectangle(input)
 	if err != nil {
+		rb.output.ErrorRectangle(err)
 		return nil, err
 	}
+
+	area := CalculateRectangleArea(rectangle)
+	perimeter := CalculateRectanglePerimeter(rectangle)
+
+	rb.output.SuccessRectangle(SuccessRectangleOutput{
+		Rectangle: rectangle,
+		Area:      area,
+		Perimeter: perimeter,
+	})
 
 	return rectangle, nil
 }
 
 // UpdateRectangle updates a rectangle.
 func (rb *RectangleBoundary) UpdateRectangle(input UpdateRectangleInput) (*entity.Rectangle, error) {
-	rectangleBuilder := builder.NewRectangleBuilder()
-	rectangleBuilder.SetID(input.ID)
-	rectangleBuilder.SetName(input.Name)
-	rectangleBuilder.SetWidth(input.Width)
-	rectangleBuilder.SetHeight(input.Height)
-	rectangleBuilder.SetPosition(input.Position)
-	rectangleBuilder.SetColor(input.Color)
-
-	rectangle, err := rb.interactor.UpdateRectangle(rectangleBuilder)
+	rectangle, err := rb.input.UpdateRectangle(input)
 	if err != nil {
+		rb.output.ErrorRectangle(err)
 		return nil, err
 	}
+
+	area := CalculateRectangleArea(rectangle)
+	perimeter := CalculateRectanglePerimeter(rectangle)
+
+	rb.output.SuccessRectangle(SuccessRectangleOutput{
+		Rectangle: rectangle,
+		Area:      area,
+		Perimeter: perimeter,
+	})
 
 	return rectangle, nil
 }
 
-// DeleteRectangle deletes a rectangle.
+// DeleteRectangle deletes a rectangle by ID.
 func (rb *RectangleBoundary) DeleteRectangle(input DeleteRectangleInput) error {
-	err := rb.interactor.DeleteRectangle(input.ID)
+	err := rb.input.DeleteRectangle(input)
 	if err != nil {
+		rb.output.ErrorRectangle(err)
 		return err
 	}
+
+	rb.output.SuccessRectangle(SuccessRectangleOutput{})
 
 	return nil
 }
 
 // CalculateRectangleArea calculates the area of the rectangle.
 func CalculateRectangleArea(rectangle *entity.Rectangle) float64 {
-	return rectangle.Width * rectangle.Height
+	return float64(rectangle.Width() * rectangle.Height())
 }
 
 // CalculateRectanglePerimeter calculates the perimeter of the rectangle.
 func CalculateRectanglePerimeter(rectangle *entity.Rectangle) float64 {
-	return 2 * (rectangle.Width + rectangle.Height)
+	return float64(2 * (rectangle.Width() + rectangle.Height()))
 }
 
-// SuccessRectangleBoundary is the success output method.
-func (rb *RectangleBoundary) SuccessRectangleBoundary(output SuccessRectangleOutput) {
+// SuccessRectangle is the success output method.
+func (rb *RectangleBoundary) SuccessRectangle(output SuccessRectangleOutput) {
 	fmt.Printf("Rectangle: %+v\n", output.Rectangle)
 	fmt.Printf("Area: %f\n", output.Area)
 	fmt.Printf("Perimeter: %f\n", output.Perimeter)
 }
 
-// ErrorRectangleBoundary is the error output method.
-func (rb *RectangleBoundary) ErrorRectangleBoundary(err error) {
+// ErrorRectangle is the error output method.
+func (rb *RectangleBoundary) ErrorRectangle(err error) {
 	fmt.Printf("Error: %s\n", err)
 }
