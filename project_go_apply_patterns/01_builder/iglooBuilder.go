@@ -1,9 +1,7 @@
 package main
 
 type iglooBuilder struct {
-	windowType string
-	doorType   string
-	floor      int
+	house
 }
 
 func newIglooBuilder() *iglooBuilder {
@@ -11,21 +9,17 @@ func newIglooBuilder() *iglooBuilder {
 }
 
 func (b *iglooBuilder) setWindowType() {
-	b.windowType = "Snow Window"
+	b.house.windowType = "Snow Window"
 }
 
 func (b *iglooBuilder) setDoorType() {
-	b.doorType = "Snow Door"
+	b.house.doorType = "Snow Door"
 }
 
 func (b *iglooBuilder) setNumFloor() {
-	b.floor = 1
+	b.house.floor = 1
 }
 
 func (b *iglooBuilder) getHouse() house {
-	return house{
-		doorType:   b.doorType,
-		windowType: b.windowType,
-		floor:      b.floor,
-	}
+	return b.house
 }
