@@ -5,7 +5,7 @@ import "fmt"
 func main() {
 	normalBuilder := getBuilder("normal")
 	iglooBuilder := getBuilder("igloo")
-	woodBuilder := getBuilder("igloo")
+	woodBuilder := getBuilder("wood")
 
 	director := newDirector(normalBuilder)
 	normalHouse := director.buildHouse()
@@ -21,10 +21,13 @@ func main() {
 	fmt.Printf("Igloo House Window Type: %s\n", iglooHouse.windowType)
 	fmt.Printf("Igloo House Num Floor: %d\n", iglooHouse.floor)
 
-	director.setBuilder(iglooBuilder)
-	iglooHouse := director.buildHouse()
+	woodBuilder.WithQuality("High Quality")
+	fmt.Println(woodBuilder.GetQuality())
 
-	fmt.Printf("\nIgloo House Door Type: %s\n", iglooHouse.doorType)
-	fmt.Printf("Igloo House Window Type: %s\n", iglooHouse.windowType)
-	fmt.Printf("Igloo House Num Floor: %d\n", iglooHouse.floor)
+	director.setBuilder(woodBuilder)
+	woodHouse := director.buildHouse()
+
+	fmt.Printf("\nWood House Door Type: %s\n", woodHouse.doorType)
+	fmt.Printf("Wood House Window Type: %s\n", woodHouse.windowType)
+	fmt.Printf("Wood House Num Floor: %d\n", woodHouse.floor)
 }
