@@ -23,13 +23,16 @@ func (b *CircleBoundary) Calculate(input *CircleInput) (*CircleOutput, error) {
 		return nil, fmt.Errorf("Invalid input")
 	}
 
-	rect := &Circle{
-		radius: input.Radius,
-	}
+	// circle := entity.NewCircle(input.Radius)
+
+	// output := &CircleOutput{
+	// 	Area:      circle.Radius() * circle.Radius(),
+	// 	Perimeter: 2 * (circle.Radius() + circle.Radius()),
+	// }
 
 	output := &CircleOutput{
-		Area:      rect.radius * rect.radius,
-		Perimeter: 2 * (rect.radius + rect.radius),
+		Area:      1 * 1,
+		Perimeter: 2 * (2),
 	}
 
 	return output, nil

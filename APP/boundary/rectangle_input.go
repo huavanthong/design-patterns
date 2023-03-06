@@ -1,6 +1,7 @@
 package boundary
 
 import (
+	"github.com/huavanthong/design-patterns/APP/common"
 	"github.com/huavanthong/design-patterns/APP/entity"
 )
 
@@ -17,8 +18,8 @@ type CreateRectangleInput struct {
 	Name     string
 	Width    int
 	Height   int
-	Position Position
-	Color    Color
+	Position common.Position
+	Color    common.Color
 }
 
 // GetRectangleInput defines the input structure for getting a rectangle.
@@ -32,8 +33,8 @@ type UpdateRectangleInput struct {
 	Name     string
 	Width    int
 	Height   int
-	Position Position
-	Color    Color
+	Position common.Position
+	Color    common.Color
 }
 
 // DeleteRectangleInput defines the input structure for deleting a rectangle.
