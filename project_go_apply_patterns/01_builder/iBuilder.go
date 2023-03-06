@@ -14,5 +14,8 @@ func getBuilder(builderType string) iBuilder {
 	if builderType == "igloo" {
 		return &iglooBuilder{}
 	}
+	if builderType == "wood" {
+		return &woodBuilder{}
+	}
 	return nil
 }

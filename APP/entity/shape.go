@@ -8,4 +8,5 @@ type Shape struct {
 	dimensions common.Dimensions
 	position   common.Position
 	color      common.Color
+	borderSize int
 }

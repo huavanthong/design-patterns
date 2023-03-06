@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/huavanthong/design-patterns/APP/builder"
+	"github.com/huavanthong/design-patterns/APP/common"
 )
 
 // Ta có thể đặt file này ở file khác chẳng hạn circle_input.go
@@ -25,9 +26,9 @@ func (b *CircleBoundary) Calculate(input *CircleInput) (*CircleOutput, error) {
 		return nil, fmt.Errorf("Invalid input")
 	}
 
-	circle := builder.NewCircleBuilder().
-		SetDimensions(input.Radius).
-		Build()
+	circleBuilder := builder.NewCircleBuilder()
+	circleBuilder.SetDimensions(common.Dimensions{Width: 0, Height: 0, Radius: input.Radius})
+	circle := circleBuilder.Build()
 
 	output := &CircleOutput{
 		Area:      circle.GetArea(),
