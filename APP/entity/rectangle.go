@@ -64,8 +64,13 @@ func (r *Rectangle) SetBorderSize(borderSize int) {
 	r.borderSize = borderSize
 }
 
+// utilities
 func (r *Rectangle) GetArea() float64 {
 	return r.width * r.height
+}
+
+func (r *Rectangle) GetPerimeter() float64 {
+	return (r.width + r.height) * 2
 }
 
 func (r *Rectangle) Draw() {

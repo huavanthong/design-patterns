@@ -56,6 +56,10 @@ func (c *Circle) GetArea() float64 {
 	return math.Pi * c.radius * c.radius
 }
 
+func (c *Circle) GetPerimeter() float64 {
+	return math.Pi * 2 * c.radius
+}
+
 func (c *Circle) Draw() {
 	fmt.Printf("Drawing a circle with radius %v, position %v, color %v, and border size %v\n", c.radius, c.position, c.color, c.borderSize)
 }

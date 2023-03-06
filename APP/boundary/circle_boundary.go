@@ -2,6 +2,8 @@ package boundary
 
 import (
 	"fmt"
+
+	"github.com/huavanthong/design-patterns/APP/builder"
 )
 
 // Ta có thể đặt file này ở file khác chẳng hạn circle_input.go
@@ -23,16 +25,13 @@ func (b *CircleBoundary) Calculate(input *CircleInput) (*CircleOutput, error) {
 		return nil, fmt.Errorf("Invalid input")
 	}
 
-	// circle := entity.NewCircle(input.Radius)
-
-	// output := &CircleOutput{
-	// 	Area:      circle.Radius() * circle.Radius(),
-	// 	Perimeter: 2 * (circle.Radius() + circle.Radius()),
-	// }
+	circle := builder.NewCircleBuilder().
+		SetDimensions(input.Radius).
+		Build()
 
 	output := &CircleOutput{
-		Area:      1 * 1,
-		Perimeter: 2 * (2),
+		Area:      circle.GetArea(),
+		Perimeter: circle.GetPerimeter(),
 	}
 
 	return output, nil
