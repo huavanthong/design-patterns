@@ -15,7 +15,7 @@ type Circle struct {
 
 // Constructor
 func NewCircle(radius float64, position common.Position, color common.Color, borderSize int) *Circle {
-	return &Circle{Shape: Shape{position: position, color: color, borderSize: borderSize}, radius: radius}
+	return &Circle{Shape: shape{position: position, color: color, borderSize: borderSize}, radius: radius}
 }
 
 // Getter methods
