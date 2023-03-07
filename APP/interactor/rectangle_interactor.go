@@ -20,16 +20,16 @@ func NewRectangleInteractor(boundary boundary.RectangleBoundary, validator *Vali
 }
 
 // CreateRectangle creates a new Rectangle entity with the provided input.
-func (i *RectangleInteractor) CreateRectangle(input boundary.RectangleInput) {
-	if err := i.validator.Validate(input); err != nil {
-		i.boundary.ErrorRectangle(err)
+func (ri *RectangleInteractor) CreateRectangle(input boundary.RectangleInput) {
+	if err := ri.validator.Validate(input); err != nil {
+		ri.boundary.ErrorRectangle(err)
 		return
 	}
 
 	rectangle := entity.NewRectangle(input.Width, input.Height)
 
 	if err := rectangle.Validate(); err != nil {
-		i.boundary.ErrorRectangle(err)
+		ri.boundary.ErrorRectangle(err)
 		return
 	}
 
@@ -37,20 +37,20 @@ func (i *RectangleInteractor) CreateRectangle(input boundary.RectangleInput) {
 		Rectangle: rectangle,
 	}
 
-	i.boundary.SuccessRectangle(output)
+	ri.boundary.SuccessRectangle(output)
 }
 
 // GetRectangle retrieves a Rectangle entity with the provided input.
-func (i *RectangleInteractor) GetRectangle(input boundary.RectangleInput) {
-	if err := i.validator.ValidateRectangle(input); err != nil {
-		i.boundary.ErrorRectangle(err)
+func (ri *RectangleInteractor) GetRectangle(input boundary.RectangleInput) {
+	if err := ri.validator.ValidateRectangle(input); err != nil {
+		ri.boundary.ErrorRectangle(err)
 		return
 	}
 
 	rectangle := entity.NewRectangle(input.Width, input.Height)
 
 	if err := rectangle.Validate(); err != nil {
-		i.boundary.ErrorRectangle(err)
+		ri.boundary.ErrorRectangle(err)
 		return
 	}
 
@@ -62,5 +62,5 @@ func (i *RectangleInteractor) GetRectangle(input boundary.RectangleInput) {
 		Perimeter: perimeter,
 	}
 
-	i.boundary.RectangleInfo(output)
+	ri.boundary.RectangleInfo(output)
 }

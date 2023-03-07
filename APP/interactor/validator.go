@@ -1,6 +1,9 @@
 package interactor
 
-import "github.com/huavanthong/design-patterns/APP/entity"
+import (
+	"github.com/huavanthong/design-patterns/APP/common"
+	"github.com/huavanthong/design-patterns/APP/entity"
+)
 
 // Validator defines the interface for validating shapes.
 type Validator interface {
@@ -14,10 +17,10 @@ type ShapeValidator struct{}
 // ValidateRectangle validates a Rectangle.
 func (v *ShapeValidator) ValidateRectangle(r *entity.Rectangle) error {
 	if r.Width <= 0 {
-		return ErrInvalidWidth
+		return common.ErrInvalidWidth
 	}
 	if r.Height <= 0 {
-		return ErrInvalidHeight
+		return common.ErrInvalidHeight
 	}
 	return nil
 }
@@ -25,7 +28,7 @@ func (v *ShapeValidator) ValidateRectangle(r *entity.Rectangle) error {
 // ValidateCircle validates a Circle.
 func (v *ShapeValidator) ValidateCircle(c *entity.Circle) error {
 	if c.Radius <= 0 {
-		return ErrInvalidRadius
+		return common.ErrInvalidRadius
 	}
 	return nil
 }
