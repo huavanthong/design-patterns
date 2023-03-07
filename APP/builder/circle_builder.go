@@ -5,26 +5,54 @@ import (
 	"github.com/huavanthong/design-patterns/APP/entity"
 )
 
-type CircleBuilder struct {
-	shape *entity.Circle
+//
+type CircleBuilder interface {
+	SetDimensions(dimensions common.Dimensions) CircleBuilder
+	SetColor(color common.Color) CircleBuilder
+	SetPosition(position common.Position) CircleBuilder
+	SetBorderSize(position common.Position) CircleBuilder
+	Build() entity.Circle
 }
 
-func NewCircleBuilder() *CircleBuilder {
-	return &CircleBuilder{shape: &entity.Circle{}}
+type circleBuilder struct {
+	dimensions common.Dimensions
+	color      common.Color
+	position   common.Position
+	borderSize int
 }
 
-func (cb *CircleBuilder) SetDimensions(dimensions common.Dimensions) {
-	cb.shape.SetRadius(dimensions.Width / 2) // assuming width and height are the same
+// Về cở bản đây không phải là các setter method mà mình biết trong Java.
+
+// Các phương thức SetDimensions(), SetColor() và SetPosition()
+// sẽ trả về chính builder struct để có thể gọi tiếp các phương thức khác
+// hoặc để kết hợp các phương thức lại với nhau.
+func (cb *circleBuilder) SetDimensions(dimensions common.Dimensions) CircleBuilder {
+	cb.dimensions = dimensions
+	return cb
 }
 
-func (cb *CircleBuilder) SetPosition(position common.Position) {
-	cb.shape.SetPosition(position)
+func (cb *circleBuilder) SetColor(color common.Color) CircleBuilder {
+	cb.color = color
+	return cb
 }
 
-func (cb *CircleBuilder) SetColor(color common.Color) {
-	cb.shape.SetColor(color)
+func (cb *circleBuilder) SetPosition(position common.Position) CircleBuilder {
+	cb.position = position
+	return cb
 }
 
-func (cb *CircleBuilder) Build() entity.Shape {
-	return cb.shape.Shape
+func (cb *circleBuilder) SetBorderSize(position common.Position) CircleBuilder {
+	cb.position = position
+	return cb
+}
+
+// Build: Combine all setting to build a object
+func (cb *circleBuilder) Build() entity.Circle {
+	circle := entity.Circle{
+		Dimensions: cb.dimensions,
+		Color:      cb.color,
+		Position:   cb.position,
+		BorderSize: cb.borderSize,
+	}
+	return circle
 }
