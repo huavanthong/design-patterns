@@ -3,64 +3,51 @@ package interactor
 import (
 	"github.com/huavanthong/design-patterns/APP/boundary"
 	"github.com/huavanthong/design-patterns/APP/entity"
+	"github.com/huavanthong/design-patterns/APP/validator"
 )
 
 // RectangleInteractor defines the interactor for Rectangle.
 type RectangleInteractor struct {
 	boundary  boundary.RectangleBoundary
-	validator *Validator
+	validator validator.ShapeValidator
 }
 
 // NewRectangleInteractor creates a new instance of RectangleInteractor.
-func NewRectangleInteractor(boundary boundary.RectangleBoundary, validator *Validator) *RectangleInteractor {
+func NewRectangleInteractor(boundary boundary.RectangleBoundary, validator validator.ShapeValidator) *RectangleInteractor {
 	return &RectangleInteractor{
 		boundary:  boundary,
 		validator: validator,
 	}
 }
 
-// CreateRectangle creates a new Rectangle entity with the provided input.
-func (ri *RectangleInteractor) CreateRectangle(input boundary.RectangleInput) {
-	if err := ri.validator.Validate(input); err != nil {
-		ri.boundary.ErrorRectangle(err)
-		return
+// Create creates a rectangle.
+func (ri *RectangleInteractor) Create(input boundary.CreateRectangleInput) (*entity.Rectangle, error) {
+	// Validate input
+	if err := ri.validator.ValidateCreateRectangle(input); err != nil {
+		return nil, err
 	}
 
-	rectangle := entity.NewRectangle(input.Width, input.Height)
-
-	if err := rectangle.Validate(); err != nil {
-		ri.boundary.ErrorRectangle(err)
-		return
-	}
-
-	output := boundary.SuccessRectangleOutput{
-		Rectangle: rectangle,
-	}
-
-	ri.boundary.SuccessRectangle(output)
+	// Create rectangle
+	return ri.boundary.CreateRectangle(input)
 }
 
-// GetRectangle retrieves a Rectangle entity with the provided input.
-func (ri *RectangleInteractor) GetRectangle(input boundary.RectangleInput) {
-	if err := ri.validator.ValidateRectangle(input); err != nil {
-		ri.boundary.ErrorRectangle(err)
-		return
+// Get gets a rectangle by ID.
+func (ri *RectangleInteractor) Get(input boundary.GetRectangleInput) (*entity.Rectangle, error) {
+	return ri.boundary.GetRectangle(input)
+}
+
+// Update updates a rectangle.
+func (ri *RectangleInteractor) Update(input boundary.UpdateRectangleInput) (*entity.Rectangle, error) {
+	// Validate input
+	if err := ri.validator.ValidateUpdateRectangle(input); err != nil {
+		return nil, err
 	}
 
-	rectangle := entity.NewRectangle(input.Width, input.Height)
+	// Update rectangle
+	return ri.boundary.UpdateRectangle(input)
+}
 
-	if err := rectangle.Validate(); err != nil {
-		ri.boundary.ErrorRectangle(err)
-		return
-	}
-
-	area := rectangle.Area()
-	perimeter := rectangle.Perimeter()
-
-	output := boundary.RectangleInfoOutput{
-		Area:      area,
-		Perimeter: perimeter,
-	}
-
-	ri.boundary.RectangleInfo(output)
+// Delete deletes a rectangle by ID.
+func (ri *RectangleInteractor) Delete(input boundary.DeleteRectangleInput) error {
+	return ri.boundary.DeleteRectangle(input)
 }

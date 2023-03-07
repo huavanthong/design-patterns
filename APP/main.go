@@ -4,14 +4,14 @@ import (
 	"fmt"
 
 	"github.com/huavanthong/design-patterns/APP/builder"
-	"github.com/huavanthong/design-patterns/APP/interactor"
-
 	"github.com/huavanthong/design-patterns/APP/common"
+	"github.com/huavanthong/design-patterns/APP/interactor"
+	"github.com/huavanthong/design-patterns/APP/validator"
 )
 
 func main() {
 	// Create rectangle builder
-	rectangleBuilder := builder.NewRectangleBuilder()
+	rectangleBuilder := builder.GetShapeBuilder("rectangle").(*builder.RectangleBuilder)
 
 	// Set dimensions
 	rectangleBuilder.SetDimensions(common.Dimensions{Width: 10, Height: 5, Radius: 5})
@@ -26,10 +26,10 @@ func main() {
 	rectangle := rectangleBuilder.Build()
 
 	// Create circle builder
-	circleBuilder := builder.NewCircleBuilder()
+	circleBuilder := builder.GetShapeBuilder("circle").(*builder.CircleBuilder)
 
 	// Set dimensions
-	circleBuilder.SetRadius(7)
+	circleBuilder.SetDimensions(common.Dimensions{Width: 10, Height: 5, Radius: 5})
 
 	// Set position
 	circleBuilder.SetPosition(common.Position{X: 2, Y: 2})
@@ -40,15 +40,17 @@ func main() {
 	// Build circle
 	circle := circleBuilder.Build()
 
-	// Create rectangle interactor
-	rectangleInteractor := interactor.NewRectangleInteractor(rectangle)
+	validator := validator.NewShapeValidator()
 
-	// Create circle interactor
-	circleInteractor := interactor.NewCircleInteractor(circle)
+	// Create rectangle interactor
+	rectangleInteractor := interactor.NewRectangleInteractor(rectangle, validator)
+
+	// // Create circle interactor
+	// circleInteractor := interactor.NewCircleInteractor(circle)
 
 	// Print rectangle info
 	fmt.Println(rectangleInteractor.GetInfo())
 
 	// Print circle info
-	fmt.Println(circleInteractor.GetInfo())
+	fmt.Println(circle)
 }
