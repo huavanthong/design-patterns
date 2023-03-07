@@ -26,7 +26,8 @@ func (b *CircleBoundary) Calculate(input *CircleInput) (*CircleOutput, error) {
 		return nil, fmt.Errorf("Invalid input")
 	}
 
-	circleBuilder := builder.NewCircleBuilder()
+	circleBuilder := builder.GetShapeBuilder("circle").(*builder.CircleBuilder)
+
 	circleBuilder.SetDimensions(common.Dimensions{Width: 0, Height: 0, Radius: input.Radius})
 	circle := circleBuilder.Build()
 

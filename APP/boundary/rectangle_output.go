@@ -5,7 +5,7 @@ import (
 )
 
 // RectangleOutputBoundary defines the output port for Rectangle.
-type RectangleOutputBoundary interface {
+type RectangleOutput interface {
 	SuccessRectangle(output SuccessRectangleOutput)
 	ErrorRectangle(err error)
 }

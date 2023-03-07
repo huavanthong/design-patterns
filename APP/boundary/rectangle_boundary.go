@@ -96,12 +96,12 @@ func (rb *RectangleBoundary) DeleteRectangle(input DeleteRectangleInput) error {
 
 // CalculateRectangleArea calculates the area of the rectangle.
 func CalculateRectangleArea(rectangle *entity.Rectangle) float64 {
-	return float64(rectangle.Width() * rectangle.Height())
+	return float64(rectangle.Dimensions.Width * rectangle.Dimensions.Height)
 }
 
 // CalculateRectanglePerimeter calculates the perimeter of the rectangle.
 func CalculateRectanglePerimeter(rectangle *entity.Rectangle) float64 {
-	return float64(2 * (rectangle.Width() + rectangle.Height()))
+	return float64(2 * (rectangle.Dimensions.Width + rectangle.Dimensions.Height))
 }
 
 // SuccessRectangle is the success output method.

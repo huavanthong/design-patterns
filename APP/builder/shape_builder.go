@@ -19,9 +19,9 @@ type IShapeBuilder interface {
 func GetShapeBuilder(builderType string) interface{} {
 	switch builderType {
 	case "circle":
-		return &circleBuilder{}
+		return &CircleBuilder{}
 	case "rectangle":
-		return &rectangleBuilder{}
+		return &RectangleBuilder{}
 	default:
 		return nil
 	}
