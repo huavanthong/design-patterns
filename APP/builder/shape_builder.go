@@ -7,6 +7,7 @@ import (
 )
 
 type IShapeBuilder interface {
+	SetName(name string) IShapeBuilder
 	SetDimensions(dimensions common.Dimensions) IShapeBuilder
 	SetColor(color common.Color) IShapeBuilder
 	SetPosition(position common.Position) IShapeBuilder

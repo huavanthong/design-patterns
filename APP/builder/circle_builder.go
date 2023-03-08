@@ -7,6 +7,7 @@ import (
 
 //
 type ICircleBuilder interface {
+	SetName(name string) ICircleBuilder
 	SetDimensions(dimensions common.Dimensions) ICircleBuilder
 	SetColor(color common.Color) ICircleBuilder
 	SetPosition(position common.Position) ICircleBuilder
@@ -15,6 +16,7 @@ type ICircleBuilder interface {
 }
 
 type CircleBuilder struct {
+	name       string
 	dimensions common.Dimensions
 	color      common.Color
 	position   common.Position
@@ -22,8 +24,10 @@ type CircleBuilder struct {
 }
 
 // Constructor
-func NewCircleBuilder() *CircleBuilder {
+// Ta sẽ đặt tên cho Cirle ngay lập tức khi ta tạo ra nó.
+func NewCircleBuilder(name string) *CircleBuilder {
 	return &CircleBuilder{
+		name:       name,
 		dimensions: common.Dimensions{},
 		color:      common.Color{},
 		position:   common.Position{},
@@ -36,6 +40,11 @@ func NewCircleBuilder() *CircleBuilder {
 // Các phương thức SetDimensions(), SetColor() và SetPosition()
 // sẽ trả về chính builder struct để có thể gọi tiếp các phương thức khác
 // hoặc để kết hợp các phương thức lại với nhau.
+func (cb *CircleBuilder) SetName(name string) ICircleBuilder {
+	cb.name = name
+	return cb
+}
+
 func (cb *CircleBuilder) SetDimensions(dimensions common.Dimensions) ICircleBuilder {
 	cb.dimensions = dimensions
 	return cb

@@ -6,6 +6,7 @@ import (
 )
 
 type IRectangleBuilder interface {
+	SetName(name string) IRectangleBuilder
 	SetDimensions(dimensions common.Dimensions) IRectangleBuilder
 	SetColor(color common.Color) IRectangleBuilder
 	SetPosition(position common.Position) IRectangleBuilder
@@ -14,6 +15,7 @@ type IRectangleBuilder interface {
 }
 
 type RectangleBuilder struct {
+	name       string
 	dimensions common.Dimensions
 	color      common.Color
 	position   common.Position
@@ -21,8 +23,10 @@ type RectangleBuilder struct {
 }
 
 // Constructor
-func NewRectangleBuilder() *RectangleBuilder {
+// Ta sẽ đặt tên cho Rectangle ngay lập tức khi ta tạo ra nó.
+func NewRectangleBuilder(name string) *RectangleBuilder {
 	return &RectangleBuilder{
+		name:       name,
 		dimensions: common.Dimensions{},
 		color:      common.Color{},
 		position:   common.Position{},
@@ -30,11 +34,16 @@ func NewRectangleBuilder() *RectangleBuilder {
 	}
 }
 
-// Về cở bản đây không phải là các setter method mà mình biết trong Java.
+// Về cơ bản đây không phải là các setter method mà mình biết trong Java.
 
 // Các phương thức SetDimensions(), SetColor() và SetPosition()
 // sẽ trả về chính builder struct để có thể gọi tiếp các phương thức khác
 // hoặc để kết hợp các phương thức lại với nhau.
+func (rb *RectangleBuilder) SetName(name string) IRectangleBuilder {
+	rb.name = name
+	return rb
+}
+
 func (rb *RectangleBuilder) SetDimensions(dimensions common.Dimensions) IRectangleBuilder {
 	rb.dimensions.Width = dimensions.Width
 	rb.dimensions.Height = dimensions.Height
