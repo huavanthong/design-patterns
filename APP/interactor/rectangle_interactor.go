@@ -6,6 +6,15 @@ import (
 	"github.com/huavanthong/design-patterns/APP/validator"
 )
 
+// RectangleInteractor là interface cho các nghiệp vụ liên quan đến Rectangle
+// RectangleInteractor là interface cho các nghiệp vụ liên quan đến Rectangle
+type IRectangleInteractor interface {
+	Create(input boundary.CreateRectangleInput) (*entity.Rectangle, error)
+	Get(input boundary.GetRectangleInput) (*entity.Rectangle, error)
+	Update(input boundary.UpdateRectangleInput) (*entity.Rectangle, error)
+	Delete(input boundary.DeleteRectangleInput) error
+}
+
 // RectangleInteractor defines the interactor for Rectangle.
 type RectangleInteractor struct {
 	boundary  boundary.RectangleBoundary

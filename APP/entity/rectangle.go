@@ -8,6 +8,7 @@ import (
 )
 
 type Rectangle struct {
+	ID         int
 	Dimensions common.Dimensions
 	Color      common.Color
 	Position   common.Position

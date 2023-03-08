@@ -1,4 +1,5 @@
 # Project Structure
+This is a project structure for overview our architecture
 ```lua
 ├── common/
 │   ├── common.go
@@ -30,3 +31,5 @@
 ├── go.mod
 └── main.go
 ```
+
+# Application Purpose
