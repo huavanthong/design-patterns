@@ -4,15 +4,20 @@ package entity
 import (
 	"fmt"
 	"math"
+	"time"
 
 	"github.com/huavanthong/design-patterns/APP/common"
 )
 
 type Circle struct {
-	Dimensions common.Dimensions
-	Color      common.Color
-	Position   common.Position
-	BorderSize int
+	ID         int               `json:"id"`
+	Name       string            `json:"name"`
+	Dimensions common.Dimensions `json:"dimensions"`
+	Color      common.Color      `json:"color"`
+	Position   common.Position   `json:"position"`
+	BorderSize int               `json:"border_size"`
+	CreatedAt  time.Time         `json:"created_at"`
+	UpdatedAt  time.Time         `json:"updated_at"`
 }
 
 // utilities

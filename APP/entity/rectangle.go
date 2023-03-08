@@ -3,16 +3,20 @@ package entity
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/huavanthong/design-patterns/APP/common"
 )
 
 type Rectangle struct {
-	ID         int
-	Dimensions common.Dimensions
-	Color      common.Color
-	Position   common.Position
-	BorderSize int
+	ID         string            `json:"id"`
+	Name       string            `json:"name"`
+	Dimensions common.Dimensions `json:"dimensions"`
+	Color      common.Color      `json:"color"`
+	Position   common.Position   `json:"position"`
+	BorderSize int               `json:"border_size"`
+	CreatedAt  time.Time         `json:"created_at"`
+	UpdatedAt  time.Time         `json:"updated_at"`
 }
 
 // utilities

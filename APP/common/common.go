@@ -1,5 +1,14 @@
 package common
 
+import (
+	"github.com/google/uuid"
+)
+
+// GenerateUUID generates a unique identifier using UUID v4
+func GenerateUUID() string {
+	return uuid.NewString()
+}
+
 type Dimensions struct {
 	Width  float64
 	Height float64
