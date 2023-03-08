@@ -1,6 +1,8 @@
 package validator
 
 import (
+	"errors"
+
 	"github.com/huavanthong/design-patterns/APP/boundary"
 	"github.com/huavanthong/design-patterns/APP/common"
 )
@@ -22,6 +24,10 @@ func NewShapeValidator() Validator {
 
 // ValidateCreateRectangle validates a Rectangle.
 func (v *ShapeValidator) ValidateCreateRectangle(r boundary.CreateRectangleInput) error {
+
+	if r.Name == "" {
+		return nil, errors.New("name is required")
+	}
 	if r.Width <= 0 {
 		return common.ErrInvalidWidth
 	}

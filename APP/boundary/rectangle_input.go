@@ -1,15 +1,17 @@
 package boundary
 
 import (
+	"time"
+
 	"github.com/huavanthong/design-patterns/APP/common"
 	"github.com/huavanthong/design-patterns/APP/entity"
 )
 
 // RectangleInput defines the input port for Rectangle.
-type RectangleInput interface {
-	CreateRectangle(input CreateRectangleInput) (*entity.Rectangle, error)
-	GetRectangle(input GetRectangleInput) (*entity.Rectangle, error)
-	UpdateRectangle(input UpdateRectangleInput) (*entity.Rectangle, error)
+type IRectangleInput interface {
+	CreateRectangle(input CreateRectangleInput) (*RectangleOutput, error)
+	GetRectangle(input GetRectangleInput) (*RectangleOutput, error)
+	UpdateRectangle(input UpdateRectangleInput) (*RectangleOutput, error)
 	DeleteRectangle(input DeleteRectangleInput) error
 }
 
@@ -20,6 +22,19 @@ type CreateRectangleInput struct {
 	Height   int
 	Position common.Position
 	Color    common.Color
+}
+
+func (ri *CreateRectangleInput) ToEntity() *entity.Rectangle {
+	return &entity.Rectangle{
+		ID:   common.GenerateUUID(),
+		Name: ri.Name,
+		Demensions: common.Dimensions{
+			Width:  ri.Width,
+			Height: ri.Height,
+			Radius: 0},
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+	}
 }
 
 // GetRectangleInput defines the input structure for getting a rectangle.

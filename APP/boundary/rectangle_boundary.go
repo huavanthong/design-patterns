@@ -1,96 +1,101 @@
 package boundary
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/huavanthong/design-patterns/APP/entity"
+	"github.com/huavanthong/design-patterns/APP/interactor"
+	"github.com/huavanthong/design-patterns/APP/validator"
 )
 
 // RectangleBoundary defines the boundary context for Rectangle.
 type RectangleBoundary struct {
-	input  RectangleInput
-	output RectangleOutput
+	interactor interactor.IRectangleInteractor
+	validator  *validator.Validator
 }
 
 // NewRectangleBoundary is a factory function
 // that it returns a new instance of RectangleBoundary.
-func NewRectangleBoundary(input RectangleInput, output RectangleOutput) *RectangleBoundary {
+func NewRectangleBoundary(interactor interactor.IRectangleInteractor, validator *validator.Validator) *RectangleBoundary {
 	return &RectangleBoundary{
-		input:  input,
-		output: output,
+		interactor: interactor,
+		validator:  validator,
 	}
 }
 
 // CreateRectangle creates a rectangle.
-func (rb *RectangleBoundary) CreateRectangle(input CreateRectangleInput) (*entity.Rectangle, error) {
-	rectangle, err := rb.input.CreateRectangle(input)
-	if err != nil {
-		rb.output.ErrorRectangle(err)
+func (rb *RectangleBoundary) CreateRectangle(input CreateRectangleInput) (*RectangleOutput, error) {
+	if err := rb.validator.ValidateCreateInput(input); err != nil {
 		return nil, err
 	}
 
-	area := CalculateRectangleArea(rectangle)
-	perimeter := CalculateRectanglePerimeter(rectangle)
+	rectangle := input.ToEntity()
+	err := rb.interactor.CreateRectangle(rectangle)
+	if err != nil {
+		return nil, err
+	}
 
-	rb.output.SuccessRectangle(SuccessRectangleOutput{
-		Rectangle: rectangle,
-		Area:      area,
-		Perimeter: perimeter,
-	})
-
-	return rectangle, nil
+	output := RectangleOutput{
+		ID:        rectangle.ID,
+		Name:      rectangle.Name,
+		Length:    rectangle.Length,
+		Breadth:   rectangle.Breadth,
+		CreatedAt: rectangle.CreatedAt,
+		UpdatedAt: rectangle.UpdatedAt,
+	}
+	return &output, nil
 }
 
 // GetRectangle gets a rectangle by ID.
-func (rb *RectangleBoundary) GetRectangle(input GetRectangleInput) (*entity.Rectangle, error) {
-	rectangle, err := rb.input.GetRectangle(input)
+func (rb *RectangleBoundary) GetRectangle(input GetRectangleInput) (*RectangleOutput, error) {
+	if input.ID == "" {
+		return nil, errors.New("ID is required")
+	}
+
+	rectangle, err := rb.interactor.GetRectangle(input.ID)
 	if err != nil {
-		rb.output.ErrorRectangle(err)
 		return nil, err
 	}
 
-	area := CalculateRectangleArea(rectangle)
-	perimeter := CalculateRectanglePerimeter(rectangle)
+	output := RectangleOutput{
+		ID:        rectangle.ID,
+		Name:      rectangle.Name,
+		Length:    rectangle.Length,
+		Breadth:   rectangle.Breadth,
+		CreatedAt: rectangle.CreatedAt,
+		UpdatedAt: rectangle.UpdatedAt,
+	}
 
-	rb.output.SuccessRectangle(SuccessRectangleOutput{
-		Rectangle: rectangle,
-		Area:      area,
-		Perimeter: perimeter,
-	})
-
-	return rectangle, nil
+	return &output, nil
 }
 
 // UpdateRectangle updates a rectangle.
-func (rb *RectangleBoundary) UpdateRectangle(input UpdateRectangleInput) (*entity.Rectangle, error) {
-	rectangle, err := rb.input.UpdateRectangle(input)
+func (rb *RectangleBoundary) UpdateRectangle(input UpdateRectangleInput) (*RectangleOutput, error) {
+
+	rectangle, err := rb.interactor.UpdateRectangle(input.ID)
 	if err != nil {
-		rb.output.ErrorRectangle(err)
 		return nil, err
 	}
 
-	area := CalculateRectangleArea(rectangle)
-	perimeter := CalculateRectanglePerimeter(rectangle)
+	output := RectangleOutput{
+		ID:        rectangle.ID,
+		Name:      rectangle.Name,
+		Length:    rectangle.Length,
+		Breadth:   rectangle.Breadth,
+		CreatedAt: rectangle.CreatedAt,
+		UpdatedAt: rectangle.UpdatedAt,
+	}
 
-	rb.output.SuccessRectangle(SuccessRectangleOutput{
-		Rectangle: rectangle,
-		Area:      area,
-		Perimeter: perimeter,
-	})
-
-	return rectangle, nil
+	return &output, nil
 }
 
 // DeleteRectangle deletes a rectangle by ID.
 func (rb *RectangleBoundary) DeleteRectangle(input DeleteRectangleInput) error {
-	err := rb.input.DeleteRectangle(input)
+	err := rb.interactor.DeleteRectangle(input)
 	if err != nil {
-		rb.output.ErrorRectangle(err)
 		return err
 	}
-
-	rb.output.SuccessRectangle(SuccessRectangleOutput{})
-
 	return nil
 }
 
