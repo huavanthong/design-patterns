@@ -9,11 +9,11 @@ import (
 // RectangleInteractor defines the interactor for Rectangle.
 type RectangleInteractor struct {
 	boundary  boundary.RectangleBoundary
-	validator validator.ShapeValidator
+	validator validator.Validator
 }
 
 // NewRectangleInteractor creates a new instance of RectangleInteractor.
-func NewRectangleInteractor(boundary boundary.RectangleBoundary, validator validator.ShapeValidator) *RectangleInteractor {
+func NewRectangleInteractor(boundary boundary.RectangleBoundary, validator validator.Validator) *RectangleInteractor {
 	return &RectangleInteractor{
 		boundary:  boundary,
 		validator: validator,

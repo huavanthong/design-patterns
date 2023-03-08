@@ -1,4 +1,4 @@
-package interactor
+package validator
 
 import (
 	"github.com/huavanthong/design-patterns/APP/boundary"
