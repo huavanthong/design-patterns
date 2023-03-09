@@ -14,12 +14,12 @@ import (
 // RectangleBoundary defines the boundary context for Rectangle.
 type RectangleBoundary struct {
 	interactor interactor.IRectangleInteractor
-	validator  *validator.ShapeValidator
+	validator  validator.ShapeValidator
 }
 
 // NewRectangleBoundary is a factory function
 // that it returns a new instance of RectangleBoundary.
-func NewRectangleBoundary(interactor interactor.IRectangleInteractor, validator *validator.ShapeValidator) *RectangleBoundary {
+func NewRectangleBoundary(interactor interactor.IRectangleInteractor, validator validator.ShapeValidator) *RectangleBoundary {
 	return &RectangleBoundary{
 		interactor: interactor,
 		validator:  validator,
@@ -57,7 +57,7 @@ func (rb *RectangleBoundary) GetRectangle(input bio.GetRectangleInput) (*bio.Rec
 		return nil, errors.New("ID is required")
 	}
 
-	rectangle, err := rb.interactor.GetRectangle(input.ID)
+	rectangle, err := rb.interactor.GetRectangleByID(input.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -65,8 +65,8 @@ func (rb *RectangleBoundary) GetRectangle(input bio.GetRectangleInput) (*bio.Rec
 	output := bio.RectangleOutput{
 		ID:        rectangle.ID,
 		Name:      rectangle.Name,
-		Width:     rectangle.Width,
-		Height:    rectangle.Height,
+		Width:     rectangle.Dimensions.Width,
+		Height:    rectangle.Dimensions.Height,
 		Position:  rectangle.Position,
 		Color:     rectangle.Color,
 		CreatedAt: rectangle.CreatedAt,
@@ -79,7 +79,12 @@ func (rb *RectangleBoundary) GetRectangle(input bio.GetRectangleInput) (*bio.Rec
 // UpdateRectangle updates a rectangle.
 func (rb *RectangleBoundary) UpdateRectangle(input bio.UpdateRectangleInput) (*bio.RectangleOutput, error) {
 
-	rectangle, err := rb.interactor.UpdateRectangle(input.ID)
+	if err := rb.validator.ValidateUpdateRectangle(input); err != nil {
+		return nil, err
+	}
+
+	rectangle := input.UpdateEntity()
+	err := rb.interactor.UpdateRectangle(rectangle)
 	if err != nil {
 		return nil, err
 	}
@@ -87,8 +92,8 @@ func (rb *RectangleBoundary) UpdateRectangle(input bio.UpdateRectangleInput) (*b
 	output := bio.RectangleOutput{
 		ID:        rectangle.ID,
 		Name:      rectangle.Name,
-		Width:     rectangle.Width,
-		Height:    rectangle.Height,
+		Width:     rectangle.Dimensions.Width,
+		Height:    rectangle.Dimensions.Height,
 		Position:  rectangle.Position,
 		Color:     rectangle.Color,
 		CreatedAt: rectangle.CreatedAt,
@@ -100,7 +105,7 @@ func (rb *RectangleBoundary) UpdateRectangle(input bio.UpdateRectangleInput) (*b
 
 // DeleteRectangle deletes a rectangle by ID.
 func (rb *RectangleBoundary) DeleteRectangle(input bio.DeleteRectangleInput) error {
-	err := rb.interactor.DeleteRectangle(input)
+	err := rb.interactor.DeleteRectangleByID(input.ID)
 	if err != nil {
 		return err
 	}

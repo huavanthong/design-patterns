@@ -4,6 +4,13 @@ import (
 	"fmt"
 
 	"github.com/huavanthong/design-patterns/APP/boundary"
+	bio "github.com/huavanthong/design-patterns/APP/boundary/io"
+
+	"github.com/huavanthong/design-patterns/APP/builder"
+	"github.com/huavanthong/design-patterns/APP/common"
+	"github.com/huavanthong/design-patterns/APP/interactor"
+	"github.com/huavanthong/design-patterns/APP/repository"
+	"github.com/huavanthong/design-patterns/APP/validator"
 )
 
 func main() {
@@ -198,61 +205,101 @@ func main() {
 		}
 		fmt.Println("Deleted rectangle by ID:", output.Rectangle.ID)
 	*/
-	// Create input and output boundary
-	input := boundary.NewRectangleInput()
-	output := boundary.NewRectangleOutput()
-	rectangleBoundary := boundary.NewRectangleBoundary(input, output)
+	// // Create input and output boundary
+	// input := boundary.NewRectangleInput()
+	// output := boundary.NewRectangleOutput()
+	// rectangleBoundary := boundary.NewRectangleBoundary(input, output)
+
+	// // Create a rectangle
+	// createInput := boundary.CreateRectangleInput{
+	// 	Width:  5,
+	// 	Height: 10,
+	// }
+	// rectangle, err := rectangleBoundary.Create(createInput)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return
+	// }
+
+	// // Print rectangle information
+	// fmt.Printf("Rectangle with width %.2f and height %.2f has area of %.2f and perimeter of %.2f\n",
+	// 	rectangle.Width, rectangle.Height, rectangle.Area(), rectangle.Perimeter())
+
+	// // Get a rectangle by ID
+	// getInput := boundary.GetRectangleInput{
+	// 	ID: rectangle.ID,
+	// }
+	// rectangle, err = rectangleBoundary.Get(getInput)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return
+	// }
+
+	// // Update the rectangle
+	// updateInput := boundary.UpdateRectangleInput{
+	// 	ID:     rectangle.ID,
+	// 	Width:  20,
+	// 	Height: 30,
+	// }
+	// rectangle, err = rectangleBoundary.Update(updateInput)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return
+	// }
+
+	// // Print updated rectangle information
+	// fmt.Printf("Rectangle with width %.2f and height %.2f has area of %.2f and perimeter of %.2f\n",
+	// 	rectangle.Width, rectangle.Height, rectangle.Area(), rectangle.Perimeter())
+
+	// // Delete the rectangle
+	// deleteInput := boundary.DeleteRectangleInput{
+	// 	ID: rectangle.ID,
+	// }
+	// err = rectangleBoundary.Delete(deleteInput)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return
+	// }
+
+	// fmt.Println("Rectangle deleted successfully")
+
+	// Initialize dependencies
+	validator := validator.NewShapeValidator()
+
+	rectangleRepository := repository.NewRectangleRepository()
+
+	rectangleBuilder := builder.GetShapeBuilder("rectangle").(*builder.RectangleBuilder)
+
+	// Set dimensions
+	rectangleBuilder.SetDimensions(common.Dimensions{Width: 10, Height: 5, Radius: 5})
+
+	// Set position
+	rectangleBuilder.SetPosition(common.Position{X: 0, Y: 0})
+
+	// Set color
+	rectangleBuilder.SetColor(common.Color{R: 255, G: 0, B: 0})
+	rectangleBuilder.Build()
 
 	// Create a rectangle
-	createInput := boundary.CreateRectangleInput{
-		Width:  5,
-		Height: 10,
+	createInput := bio.CreateRectangleInput{
+		Name:     "thong",
+		Width:    5,
+		Height:   10,
+		Position: common.Position{X: 1, Y: 1},
+		Color:    common.Color{R: 1, B: 1, G: 1},
 	}
-	rectangle, err := rectangleBoundary.Create(createInput)
+
+	rectangleInteractor := interactor.NewRectangleInteractor(*rectangleRepository)
+
+	// Initialize boundary instances
+	rectangleBoundary := boundary.NewRectangleBoundary(rectangleInteractor, validator)
+
+	createOutput, err := rectangleBoundary.CreateRectangle(createInput)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	// Print rectangle information
-	fmt.Printf("Rectangle with width %.2f and height %.2f has area of %.2f and perimeter of %.2f\n",
-		rectangle.Width, rectangle.Height, rectangle.Area(), rectangle.Perimeter())
+	fmt.Println("Success: ", createOutput)
 
-	// Get a rectangle by ID
-	getInput := boundary.GetRectangleInput{
-		ID: rectangle.ID,
-	}
-	rectangle, err = rectangleBoundary.Get(getInput)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	// Update the rectangle
-	updateInput := boundary.UpdateRectangleInput{
-		ID:     rectangle.ID,
-		Width:  20,
-		Height: 30,
-	}
-	rectangle, err = rectangleBoundary.Update(updateInput)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	// Print updated rectangle information
-	fmt.Printf("Rectangle with width %.2f and height %.2f has area of %.2f and perimeter of %.2f\n",
-		rectangle.Width, rectangle.Height, rectangle.Area(), rectangle.Perimeter())
-
-	// Delete the rectangle
-	deleteInput := boundary.DeleteRectangleInput{
-		ID: rectangle.ID,
-	}
-	err = rectangleBoundary.Delete(deleteInput)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	fmt.Println("Rectangle deleted successfully")
 }

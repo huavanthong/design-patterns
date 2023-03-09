@@ -54,6 +54,21 @@ type UpdateRectangleInput struct {
 	Color    common.Color
 }
 
+func (ri *UpdateRectangleInput) UpdateEntity() entity.Rectangle {
+	return entity.Rectangle{
+		ID:   ri.ID,
+		Name: ri.Name,
+		Dimensions: common.Dimensions{
+			Width:  ri.Width,
+			Height: ri.Height,
+			Radius: 0},
+		Position:  ri.Position,
+		Color:     ri.Color,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+	}
+}
+
 // DeleteRectangleInput defines the input structure for deleting a rectangle.
 type DeleteRectangleInput struct {
 	ID string
