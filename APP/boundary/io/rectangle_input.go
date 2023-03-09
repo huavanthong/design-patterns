@@ -18,8 +18,8 @@ type IRectangleInput interface {
 // CreateRectangleInput defines the input structure for creating a rectangle.
 type CreateRectangleInput struct {
 	Name     string
-	Width    int
-	Height   int
+	Width    float64
+	Height   float64
 	Position common.Position
 	Color    common.Color
 }
@@ -28,7 +28,7 @@ func (ri *CreateRectangleInput) ToEntity() *entity.Rectangle {
 	return &entity.Rectangle{
 		ID:   common.GenerateUUID(),
 		Name: ri.Name,
-		Demensions: common.Dimensions{
+		Dimensions: common.Dimensions{
 			Width:  ri.Width,
 			Height: ri.Height,
 			Radius: 0},
