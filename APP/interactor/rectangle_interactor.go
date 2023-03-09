@@ -1,62 +1,45 @@
 package interactor
 
 import (
-	"github.com/huavanthong/design-patterns/APP/boundary"
 	"github.com/huavanthong/design-patterns/APP/entity"
-	"github.com/huavanthong/design-patterns/APP/validator"
+	"github.com/huavanthong/design-patterns/APP/repository"
 )
 
-// RectangleInteractor là interface cho các nghiệp vụ liên quan đến Rectangle
-// RectangleInteractor là interface cho các nghiệp vụ liên quan đến Rectangle
+// RectangleInteractor is an interface for managing rectangles
 type IRectangleInteractor interface {
-	Create(input boundary.CreateRectangleInput) (*entity.Rectangle, error)
-	Get(input boundary.GetRectangleInput) (*entity.Rectangle, error)
-	Update(input boundary.UpdateRectangleInput) (*entity.Rectangle, error)
-	Delete(input boundary.DeleteRectangleInput) error
+	CreateRectangle(rectangle entity.Rectangle) error
+	GetRectangleByID(id string) (*entity.Rectangle, error)
+	UpdateRectangle(rectangle entity.Rectangle) error
+	DeleteRectangleByID(id string) error
 }
 
-// RectangleInteractor defines the interactor for Rectangle.
-type RectangleInteractor struct {
-	boundary  boundary.RectangleBoundary
-	validator validator.Validator
+type rectangleInteractor struct {
+	rectangleRepository repository.RectangleRepository
 }
 
-// NewRectangleInteractor creates a new instance of RectangleInteractor.
-func NewRectangleInteractor(boundary boundary.RectangleBoundary, validator validator.Validator) *RectangleInteractor {
-	return &RectangleInteractor{
-		boundary:  boundary,
-		validator: validator,
+// NewRectangleInteractor returns a new instance of RectangleInteractor
+func NewRectangleInteractor(rectangleRepository repository.RectangleRepository) IRectangleInteractor {
+	return &rectangleInteractor{
+		rectangleRepository: rectangleRepository,
 	}
 }
 
-// Create creates a rectangle.
-func (ri *RectangleInteractor) Create(input boundary.CreateRectangleInput) (*entity.Rectangle, error) {
-	// Validate input
-	if err := ri.validator.ValidateCreateRectangle(input); err != nil {
-		return nil, err
-	}
-
-	// Create rectangle
-	return ri.boundary.CreateRectangle(input)
+// CreateRectangle creates a new rectangle
+func (ri *rectangleInteractor) CreateRectangle(rectangle entity.Rectangle) error {
+	return ri.rectangleRepository.CreateRectangle(rectangle)
 }
 
-// Get gets a rectangle by ID.
-func (ri *RectangleInteractor) Get(input boundary.GetRectangleInput) (*entity.Rectangle, error) {
-	return ri.boundary.GetRectangle(input)
+// GetRectangleByID returns a rectangle by ID
+func (ri *rectangleInteractor) GetRectangleByID(id string) (*entity.Rectangle, error) {
+	return ri.rectangleRepository.GetRectangleByID(id)
 }
 
-// Update updates a rectangle.
-func (ri *RectangleInteractor) Update(input boundary.UpdateRectangleInput) (*entity.Rectangle, error) {
-	// Validate input
-	if err := ri.validator.ValidateUpdateRectangle(input); err != nil {
-		return nil, err
-	}
-
-	// Update rectangle
-	return ri.boundary.UpdateRectangle(input)
+// UpdateRectangle updates an existing rectangle
+func (ri *rectangleInteractor) UpdateRectangle(rectangle entity.Rectangle) error {
+	return ri.rectangleRepository.UpdateRectangle(rectangle)
 }
 
-// Delete deletes a rectangle by ID.
-func (ri *RectangleInteractor) Delete(input boundary.DeleteRectangleInput) error {
-	return ri.boundary.DeleteRectangle(input)
+// DeleteRectangleByID deletes a rectangle by ID
+func (ri *rectangleInteractor) DeleteRectangleByID(id string) error {
+	return ri.rectangleRepository.DeleteRectangleByID(id)
 }
