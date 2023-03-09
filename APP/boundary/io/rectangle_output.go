@@ -3,6 +3,7 @@ package boundary_input_output
 import (
 	"time"
 
+	"github.com/huavanthong/design-patterns/APP/common"
 	"github.com/huavanthong/design-patterns/APP/entity"
 )
 
@@ -13,12 +14,14 @@ type IRectangleOutput interface {
 }
 
 type RectangleOutput struct {
-	ID        string    `json:"id"`
-	Name      string    `json:"name"`
-	Length    float64   `json:"length"`
-	Breadth   float64   `json:"breadth"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	ID        string          `json:"id"`
+	Name      string          `json:"name"`
+	Width     float64         `json:"length"`
+	Height    float64         `json:"breadth"`
+	Position  common.Position `json:"position"`
+	Color     common.Color    `json:"color"`
+	CreatedAt time.Time       `json:"created_at"`
+	UpdatedAt time.Time       `json:"updated_at"`
 }
 
 // SuccessRectangleOutput defines the success output structure for Rectangle.

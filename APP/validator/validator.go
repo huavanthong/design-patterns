@@ -26,7 +26,7 @@ func NewShapeValidator() Validator {
 func (v *ShapeValidator) ValidateCreateRectangle(r bio.CreateRectangleInput) error {
 
 	if r.Name == "" {
-		return nil, errors.New("name is required")
+		return errors.New("name is required")
 	}
 	if r.Width <= 0 {
 		return common.ErrInvalidWidth

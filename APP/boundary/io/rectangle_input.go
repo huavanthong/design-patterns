@@ -24,14 +24,16 @@ type CreateRectangleInput struct {
 	Color    common.Color
 }
 
-func (ri *CreateRectangleInput) ToEntity() *entity.Rectangle {
-	return &entity.Rectangle{
+func (ri *CreateRectangleInput) ToEntity() entity.Rectangle {
+	return entity.Rectangle{
 		ID:   common.GenerateUUID(),
 		Name: ri.Name,
 		Dimensions: common.Dimensions{
 			Width:  ri.Width,
 			Height: ri.Height,
 			Radius: 0},
+		Position:  ri.Position,
+		Color:     ri.Color,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}

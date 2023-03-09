@@ -24,7 +24,7 @@ type IRectangleRepository interface {
 	Update(rectangle *entity.Rectangle) error
 	DeleteByID(ID string) error
 	DeleteAll() error
-	FindByDimensions(length, breadth float64) ([]entity.Rectangle, error)
+	FindByDimensions(width, hieght float64) ([]entity.Rectangle, error)
 	FindByCreatedAt(start, end time.Time) ([]entity.Rectangle, error)
 }
 
@@ -149,25 +149,19 @@ func (r *RectangleRepository) FindAll() ([]entity.Rectangle, error) {
 }
 
 // Update updates the given rectangle.
-func (r *RectangleRepository) Update(rectangle *entity.Rectangle) error {
-
+func (r *RectangleRepository) Update(rectangle entity.Rectangle) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
-	// Find the index of the rectangle with the matching ID in the slice
-	index := -1
+	// Check if the rectangle already exists in the slice
 	for i, rect := range r.rectangles {
 		if rect.ID == rectangle.ID {
-			index = i
-			break
+			r.rectangles[i] = rectangle
+			return nil
 		}
 	}
 
-	if index == -1 {
-		return errors.New("rectangle not found")
-	}
-	r.rectangles[rectangle.ID] = rectangle
-	return nil
+	return errors.New("rectangle not found")
 }
 
 func (r *RectangleRepository) DeleteByID(ID string) error {
@@ -201,14 +195,14 @@ func (r *RectangleRepository) DeleteAll() error {
 	return nil
 }
 
-func (r *RectangleRepository) FindByDimensions(length, breadth float64) ([]entity.Rectangle, error) {
+func (r *RectangleRepository) FindByDimensions(width, hieght float64) ([]entity.Rectangle, error) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
 	// Find all rectangles with matching dimensions in the slice
 	var rectangles []entity.Rectangle
 	for _, rect := range r.rectangles {
-		if rect.Length == length && rect.Breadth == breadth {
+		if rect.Dimensions.Width == width && rect.Dimensions.Height == hieght {
 			rectangles = append(rectangles, rect)
 		}
 	}

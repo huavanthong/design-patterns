@@ -28,7 +28,7 @@ func NewRectangleBoundary(interactor interactor.IRectangleInteractor, validator 
 
 // CreateRectangle creates a rectangle.
 func (rb *RectangleBoundary) CreateRectangle(input bio.CreateRectangleInput) (*bio.RectangleOutput, error) {
-	if err := rb.validator.ValidateCreateInput(input); err != nil {
+	if err := rb.validator.ValidateCreateRectangle(input); err != nil {
 		return nil, err
 	}
 
@@ -41,8 +41,10 @@ func (rb *RectangleBoundary) CreateRectangle(input bio.CreateRectangleInput) (*b
 	output := bio.RectangleOutput{
 		ID:        rectangle.ID,
 		Name:      rectangle.Name,
-		Length:    rectangle.Length,
-		Breadth:   rectangle.Breadth,
+		Width:     rectangle.Width,
+		Height:    rectangle.Height,
+		Position:  rectangle.Position,
+		Color:     rectangle.Color,
 		CreatedAt: rectangle.CreatedAt,
 		UpdatedAt: rectangle.UpdatedAt,
 	}
@@ -63,8 +65,10 @@ func (rb *RectangleBoundary) GetRectangle(input bio.GetRectangleInput) (*bio.Rec
 	output := bio.RectangleOutput{
 		ID:        rectangle.ID,
 		Name:      rectangle.Name,
-		Length:    rectangle.Length,
-		Breadth:   rectangle.Breadth,
+		Width:     rectangle.Width,
+		Height:    rectangle.Height,
+		Position:  rectangle.Position,
+		Color:     rectangle.Color,
 		CreatedAt: rectangle.CreatedAt,
 		UpdatedAt: rectangle.UpdatedAt,
 	}
@@ -83,8 +87,10 @@ func (rb *RectangleBoundary) UpdateRectangle(input bio.UpdateRectangleInput) (*b
 	output := bio.RectangleOutput{
 		ID:        rectangle.ID,
 		Name:      rectangle.Name,
-		Length:    rectangle.Length,
-		Breadth:   rectangle.Breadth,
+		Width:     rectangle.Width,
+		Height:    rectangle.Height,
+		Position:  rectangle.Position,
+		Color:     rectangle.Color,
 		CreatedAt: rectangle.CreatedAt,
 		UpdatedAt: rectangle.UpdatedAt,
 	}
