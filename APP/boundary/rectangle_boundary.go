@@ -4,8 +4,10 @@ import (
 	"errors"
 	"fmt"
 
+	bio "github.com/huavanthong/design-patterns/APP/boundary/io"
 	"github.com/huavanthong/design-patterns/APP/entity"
 	"github.com/huavanthong/design-patterns/APP/interactor"
+
 	"github.com/huavanthong/design-patterns/APP/validator"
 )
 
@@ -25,7 +27,7 @@ func NewRectangleBoundary(interactor interactor.IRectangleInteractor, validator 
 }
 
 // CreateRectangle creates a rectangle.
-func (rb *RectangleBoundary) CreateRectangle(input CreateRectangleInput) (*RectangleOutput, error) {
+func (rb *RectangleBoundary) CreateRectangle(input bio.CreateRectangleInput) (*bio.RectangleOutput, error) {
 	if err := rb.validator.ValidateCreateInput(input); err != nil {
 		return nil, err
 	}
@@ -36,7 +38,7 @@ func (rb *RectangleBoundary) CreateRectangle(input CreateRectangleInput) (*Recta
 		return nil, err
 	}
 
-	output := RectangleOutput{
+	output := bio.RectangleOutput{
 		ID:        rectangle.ID,
 		Name:      rectangle.Name,
 		Length:    rectangle.Length,
@@ -48,7 +50,7 @@ func (rb *RectangleBoundary) CreateRectangle(input CreateRectangleInput) (*Recta
 }
 
 // GetRectangle gets a rectangle by ID.
-func (rb *RectangleBoundary) GetRectangle(input GetRectangleInput) (*RectangleOutput, error) {
+func (rb *RectangleBoundary) GetRectangle(input bio.GetRectangleInput) (*bio.RectangleOutput, error) {
 	if input.ID == "" {
 		return nil, errors.New("ID is required")
 	}
@@ -58,7 +60,7 @@ func (rb *RectangleBoundary) GetRectangle(input GetRectangleInput) (*RectangleOu
 		return nil, err
 	}
 
-	output := RectangleOutput{
+	output := bio.RectangleOutput{
 		ID:        rectangle.ID,
 		Name:      rectangle.Name,
 		Length:    rectangle.Length,
@@ -71,14 +73,14 @@ func (rb *RectangleBoundary) GetRectangle(input GetRectangleInput) (*RectangleOu
 }
 
 // UpdateRectangle updates a rectangle.
-func (rb *RectangleBoundary) UpdateRectangle(input UpdateRectangleInput) (*RectangleOutput, error) {
+func (rb *RectangleBoundary) UpdateRectangle(input bio.UpdateRectangleInput) (*bio.RectangleOutput, error) {
 
 	rectangle, err := rb.interactor.UpdateRectangle(input.ID)
 	if err != nil {
 		return nil, err
 	}
 
-	output := RectangleOutput{
+	output := bio.RectangleOutput{
 		ID:        rectangle.ID,
 		Name:      rectangle.Name,
 		Length:    rectangle.Length,
@@ -91,7 +93,7 @@ func (rb *RectangleBoundary) UpdateRectangle(input UpdateRectangleInput) (*Recta
 }
 
 // DeleteRectangle deletes a rectangle by ID.
-func (rb *RectangleBoundary) DeleteRectangle(input DeleteRectangleInput) error {
+func (rb *RectangleBoundary) DeleteRectangle(input bio.DeleteRectangleInput) error {
 	err := rb.interactor.DeleteRectangle(input)
 	if err != nil {
 		return err
@@ -110,7 +112,7 @@ func CalculateRectanglePerimeter(rectangle *entity.Rectangle) float64 {
 }
 
 // SuccessRectangle is the success output method.
-func (rb *RectangleBoundary) SuccessRectangle(output SuccessRectangleOutput) {
+func (rb *RectangleBoundary) SuccessRectangle(output bio.SuccessRectangleOutput) {
 	fmt.Printf("Rectangle: %+v\n", output.Rectangle)
 	fmt.Printf("Area: %f\n", output.Area)
 	fmt.Printf("Perimeter: %f\n", output.Perimeter)

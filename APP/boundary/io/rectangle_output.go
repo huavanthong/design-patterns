@@ -1,4 +1,4 @@
-package boundary
+package boundary_output
 
 import (
 	"time"

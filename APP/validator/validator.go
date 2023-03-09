@@ -3,15 +3,15 @@ package validator
 import (
 	"errors"
 
-	"github.com/huavanthong/design-patterns/APP/boundary"
+	bio "github.com/huavanthong/design-patterns/APP/boundary/io"
 	"github.com/huavanthong/design-patterns/APP/common"
 )
 
 // Validator defines the interface for validating shapes.
 type Validator interface {
-	ValidateCreateRectangle(r boundary.CreateRectangleInput) error
-	ValidateUpdateRectangle(r boundary.UpdateRectangleInput) error
-	ValidateCreateCircle(c boundary.CircleInput) error
+	ValidateCreateRectangle(r bio.CreateRectangleInput) error
+	ValidateUpdateRectangle(r bio.UpdateRectangleInput) error
+	ValidateCreateCircle(c bio.CircleInput) error
 }
 
 // ShapeValidator implements the Validator interface for both Rectangle and Circle.
@@ -23,7 +23,7 @@ func NewShapeValidator() Validator {
 }
 
 // ValidateCreateRectangle validates a Rectangle.
-func (v *ShapeValidator) ValidateCreateRectangle(r boundary.CreateRectangleInput) error {
+func (v *ShapeValidator) ValidateCreateRectangle(r bio.CreateRectangleInput) error {
 
 	if r.Name == "" {
 		return nil, errors.New("name is required")
@@ -38,7 +38,7 @@ func (v *ShapeValidator) ValidateCreateRectangle(r boundary.CreateRectangleInput
 }
 
 // ValidateUpdateRectangle validates a Rectangle.
-func (v *ShapeValidator) ValidateUpdateRectangle(r boundary.UpdateRectangleInput) error {
+func (v *ShapeValidator) ValidateUpdateRectangle(r bio.UpdateRectangleInput) error {
 	if r.Width <= 0 {
 		return common.ErrInvalidWidth
 	}
@@ -49,7 +49,7 @@ func (v *ShapeValidator) ValidateUpdateRectangle(r boundary.UpdateRectangleInput
 }
 
 // ValidateCircle validates a Circle.
-func (v *ShapeValidator) ValidateCreateCircle(c boundary.CircleInput) error {
+func (v *ShapeValidator) ValidateCreateCircle(c bio.CircleInput) error {
 	if c.Radius <= 0 {
 		return common.ErrInvalidRadius
 	}
