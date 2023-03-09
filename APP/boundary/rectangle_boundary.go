@@ -14,12 +14,12 @@ import (
 // RectangleBoundary defines the boundary context for Rectangle.
 type RectangleBoundary struct {
 	interactor interactor.IRectangleInteractor
-	validator  *validator.Validator
+	validator  *validator.ShapeValidator
 }
 
 // NewRectangleBoundary is a factory function
 // that it returns a new instance of RectangleBoundary.
-func NewRectangleBoundary(interactor interactor.IRectangleInteractor, validator *validator.Validator) *RectangleBoundary {
+func NewRectangleBoundary(interactor interactor.IRectangleInteractor, validator *validator.ShapeValidator) *RectangleBoundary {
 	return &RectangleBoundary{
 		interactor: interactor,
 		validator:  validator,
@@ -41,8 +41,8 @@ func (rb *RectangleBoundary) CreateRectangle(input bio.CreateRectangleInput) (*b
 	output := bio.RectangleOutput{
 		ID:        rectangle.ID,
 		Name:      rectangle.Name,
-		Width:     rectangle.Width,
-		Height:    rectangle.Height,
+		Width:     rectangle.Dimensions.Width,
+		Height:    rectangle.Dimensions.Height,
 		Position:  rectangle.Position,
 		Color:     rectangle.Color,
 		CreatedAt: rectangle.CreatedAt,

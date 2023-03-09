@@ -48,8 +48,8 @@ type GetRectangleInput struct {
 type UpdateRectangleInput struct {
 	ID       string
 	Name     string
-	Width    int
-	Height   int
+	Width    float64
+	Height   float64
 	Position common.Position
 	Color    common.Color
 }
