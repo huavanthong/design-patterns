@@ -21,6 +21,7 @@ type IRectangleRepository interface {
 	Save(rectangle entity.Rectangle)
 	FindByID(ID string) (*entity.Rectangle, error)
 	FindAll() ([]entity.Rectangle, error)
+	Update(rectangle *entity.Rectangle) error
 	DeleteByID(ID string) error
 	DeleteAll() error
 	FindByDimensions(length, breadth float64) ([]entity.Rectangle, error)
@@ -59,39 +60,39 @@ Khi bạn sử dụng một đối tượng của InMemoryRectangleRepository tr
 RectangleRepository, và gọi các phương thức Save, GetByID, Update, và Delete như bạn mong muốn.
 **************************************************************************************************************************/
 // Save stores the given rectangle.
-func (r *InMemoryRectangleRepository) Save(rectangle *entity.Rectangle) error {
-	if _, ok := r.store[rectangle.ID]; ok {
-		return errors.New("rectangle already exists")
-	}
-	r.store[rectangle.ID] = rectangle
-	return nil
-}
+// func (r *InMemoryRectangleRepository) Save(rectangle *entity.Rectangle) error {
+// 	if _, ok := r.store[rectangle.ID]; ok {
+// 		return errors.New("rectangle already exists")
+// 	}
+// 	r.store[rectangle.ID] = rectangle
+// 	return nil
+// }
 
-// GetByID retrieves a rectangle by ID.
-func (r *InMemoryRectangleRepository) GetByID(id int) (*entity.Rectangle, error) {
-	if rectangle, ok := r.store[id]; ok {
-		return rectangle, nil
-	}
-	return nil, errors.New("rectangle not found")
-}
+// // GetByID retrieves a rectangle by ID.
+// func (r *InMemoryRectangleRepository) GetByID(id int) (*entity.Rectangle, error) {
+// 	if rectangle, ok := r.store[id]; ok {
+// 		return rectangle, nil
+// 	}
+// 	return nil, errors.New("rectangle not found")
+// }
 
-// Update updates the given rectangle.
-func (r *InMemoryRectangleRepository) Update(rectangle *entity.Rectangle) error {
-	if _, ok := r.store[rectangle.ID]; !ok {
-		return errors.New("rectangle not found")
-	}
-	r.store[rectangle.ID] = rectangle
-	return nil
-}
+// // Update updates the given rectangle.
+// func (r *InMemoryRectangleRepository) Update(rectangle *entity.Rectangle) error {
+// 	if _, ok := r.store[rectangle.ID]; !ok {
+// 		return errors.New("rectangle not found")
+// 	}
+// 	r.store[rectangle.ID] = rectangle
+// 	return nil
+// }
 
-// Delete deletes a rectangle by ID.
-func (r *InMemoryRectangleRepository) Delete(id int) error {
-	if _, ok := r.store[id]; !ok {
-		return errors.New("rectangle not found")
-	}
-	delete(r.store, id)
-	return nil
-}
+// // Delete deletes a rectangle by ID.
+// func (r *InMemoryRectangleRepository) Delete(id int) error {
+// 	if _, ok := r.store[id]; !ok {
+// 		return errors.New("rectangle not found")
+// 	}
+// 	delete(r.store, id)
+// 	return nil
+// }
 
 /************************************ Repository PostgreSQL ******************************************/
 type RectangleRepository struct {
@@ -145,6 +146,28 @@ func (r *RectangleRepository) FindAll() ([]entity.Rectangle, error) {
 	copy(rectangles, r.rectangles)
 
 	return rectangles, nil
+}
+
+// Update updates the given rectangle.
+func (r *RectangleRepository) Update(rectangle *entity.Rectangle) error {
+
+	r.mu.Lock()
+	defer r.mu.Unlock()
+
+	// Find the index of the rectangle with the matching ID in the slice
+	index := -1
+	for i, rect := range r.rectangles {
+		if rect.ID == rectangle.ID {
+			index = i
+			break
+		}
+	}
+
+	if index == -1 {
+		return errors.New("rectangle not found")
+	}
+	r.rectangles[rectangle.ID] = rectangle
+	return nil
 }
 
 func (r *RectangleRepository) DeleteByID(ID string) error {
