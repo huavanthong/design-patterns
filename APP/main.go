@@ -264,7 +264,7 @@ func main() {
 	// fmt.Println("Rectangle deleted successfully")
 
 	// Initialize dependencies
-	validator := validator.NewShapeValidator()
+	validator := validator.ShapeValidator{}
 
 	rectangleRepository := repository.NewRectangleRepository()
 
