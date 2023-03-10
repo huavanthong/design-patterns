@@ -278,6 +278,8 @@ func main() {
 
 	// Set color
 	rectangleBuilder.SetColor(common.Color{R: 255, G: 0, B: 0})
+
+	// Convert rectangleBuilder to entity rectangle
 	rectangleBuilder.Build()
 
 	// Create a rectangle
