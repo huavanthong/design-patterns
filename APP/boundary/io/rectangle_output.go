@@ -13,6 +13,7 @@ type IRectangleOutput interface {
 	ErrorRectangle(err error)
 }
 
+// RectangleOutput defines the output struct for Rectangle.
 type RectangleOutput struct {
 	ID        string          `json:"id"`
 	Name      string          `json:"name"`
@@ -22,6 +23,20 @@ type RectangleOutput struct {
 	Color     common.Color    `json:"color"`
 	CreatedAt time.Time       `json:"created_at"`
 	UpdatedAt time.Time       `json:"updated_at"`
+}
+
+// ToOutput converts a Rectangle entity to a RectangleOutput struct.
+func (r *entity.Rectangle) ToOutput() RectangleOutput {
+	return RectangleOutput{
+		ID:        r.ID,
+		Name:      r.Name,
+		Width:     r.Dimensions.Width,
+		Height:    r.Dimensions.Height,
+		Position:  r.Position,
+		Color:     r.Color,
+		CreatedAt: r.CreatedAt,
+		UpdatedAt: r.UpdatedAt,
+	}
 }
 
 // SuccessRectangleOutput defines the success output structure for Rectangle.
