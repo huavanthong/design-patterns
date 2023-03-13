@@ -195,14 +195,14 @@ func (r *RectangleRepository) DeleteAll() error {
 	return nil
 }
 
-func (r *RectangleRepository) FindByDimensions(width, hieght float64) ([]entity.Rectangle, error) {
+func (r *RectangleRepository) FindByDimensions(width, height float64) ([]entity.Rectangle, error) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
 	// Find all rectangles with matching dimensions in the slice
 	var rectangles []entity.Rectangle
 	for _, rect := range r.rectangles {
-		if rect.Dimensions.Width == width && rect.Dimensions.Height == hieght {
+		if rect.Width == width && rect.Height == height {
 			rectangles = append(rectangles, rect)
 		}
 	}

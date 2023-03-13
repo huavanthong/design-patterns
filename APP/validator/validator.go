@@ -25,13 +25,16 @@ func NewShapeValidator() Validator {
 // ValidateCreateRectangle validates a Rectangle.
 func (v *ShapeValidator) ValidateCreateRectangle(r bio.CreateRectangleInput) error {
 
-	if r.Name == "" {
-		return errors.New("name is required")
+	if r.ObjectName == "" {
+		return errors.New("object name is required")
 	}
-	if r.Width <= 0 {
+	if r.OwnerName == "" {
+		return errors.New("owner name is required")
+	}
+	if r.Dimensions.Width <= 0 {
 		return common.ErrInvalidWidth
 	}
-	if r.Height <= 0 {
+	if r.Dimensions.Height <= 0 {
 		return common.ErrInvalidHeight
 	}
 	return nil
@@ -39,10 +42,10 @@ func (v *ShapeValidator) ValidateCreateRectangle(r bio.CreateRectangleInput) err
 
 // ValidateUpdateRectangle validates a Rectangle.
 func (v *ShapeValidator) ValidateUpdateRectangle(r bio.UpdateRectangleInput) error {
-	if r.Width <= 0 {
+	if r.Dimensions.Width <= 0 {
 		return common.ErrInvalidWidth
 	}
-	if r.Height <= 0 {
+	if r.Dimensions.Height <= 0 {
 		return common.ErrInvalidHeight
 	}
 	return nil

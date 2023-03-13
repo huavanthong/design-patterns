@@ -17,25 +17,24 @@ type IRectangleInput interface {
 
 // CreateRectangleInput defines the input structure for creating a rectangle.
 type CreateRectangleInput struct {
-	Name     string
-	Width    float64
-	Height   float64
-	Position common.Position
-	Color    common.Color
+	ObjectName string
+	OwnerName  string
+	Dimensions common.Dimensions
+	Position   common.Position
+	Color      common.Color
 }
 
 func (ri *CreateRectangleInput) ToEntity() entity.Rectangle {
 	return entity.Rectangle{
-		ID:   common.GenerateUUID(),
-		Name: ri.Name,
-		Dimensions: common.Dimensions{
-			Width:  ri.Width,
-			Height: ri.Height,
-			Radius: 0},
-		Position:  ri.Position,
-		Color:     ri.Color,
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
+		ID:         common.GenerateUUID(),
+		ObjectName: ri.ObjectName,
+		OwnerName:  ri.OwnerName,
+		Width:      ri.Dimensions.Width,
+		Height:     ri.Dimensions.Height,
+		Position:   ri.Position,
+		Color:      ri.Color,
+		CreatedAt:  time.Now(),
+		UpdatedAt:  time.Now(),
 	}
 }
 
@@ -46,26 +45,25 @@ type GetRectangleInput struct {
 
 // UpdateRectangleInput defines the input structure for updating a rectangle.
 type UpdateRectangleInput struct {
-	ID       string
-	Name     string
-	Width    float64
-	Height   float64
-	Position common.Position
-	Color    common.Color
+	ID         string
+	ObjectName string
+	OwnerName  string
+	Dimensions common.Dimensions
+	Position   common.Position
+	Color      common.Color
 }
 
 func (ri *UpdateRectangleInput) UpdateEntity() entity.Rectangle {
 	return entity.Rectangle{
-		ID:   ri.ID,
-		Name: ri.Name,
-		Dimensions: common.Dimensions{
-			Width:  ri.Width,
-			Height: ri.Height,
-			Radius: 0},
-		Position:  ri.Position,
-		Color:     ri.Color,
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
+		ID:         ri.ID,
+		ObjectName: ri.ObjectName,
+		OwnerName:  ri.OwnerName,
+		Width:      ri.Dimensions.Width,
+		Height:     ri.Dimensions.Height,
+		Position:   ri.Position,
+		Color:      ri.Color,
+		CreatedAt:  time.Now(),
+		UpdatedAt:  time.Now(),
 	}
 }
 

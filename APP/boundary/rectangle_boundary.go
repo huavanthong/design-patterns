@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	bio "github.com/huavanthong/design-patterns/APP/boundary/io"
-	"github.com/huavanthong/design-patterns/APP/entity"
 	"github.com/huavanthong/design-patterns/APP/interactor"
 
 	"github.com/huavanthong/design-patterns/APP/validator"
@@ -38,16 +37,8 @@ func (rb *RectangleBoundary) CreateRectangle(input bio.CreateRectangleInput) (*b
 		return nil, err
 	}
 
-	output := bio.RectangleOutput{
-		ID:        rectangle.ID,
-		Name:      rectangle.Name,
-		Width:     rectangle.Dimensions.Width,
-		Height:    rectangle.Dimensions.Height,
-		Position:  rectangle.Position,
-		Color:     rectangle.Color,
-		CreatedAt: rectangle.CreatedAt,
-		UpdatedAt: rectangle.UpdatedAt,
-	}
+	output := bio.ToOutput(rectangle)
+
 	return &output, nil
 }
 
@@ -62,16 +53,7 @@ func (rb *RectangleBoundary) GetRectangle(input bio.GetRectangleInput) (*bio.Rec
 		return nil, err
 	}
 
-	output := bio.RectangleOutput{
-		ID:        rectangle.ID,
-		Name:      rectangle.Name,
-		Width:     rectangle.Dimensions.Width,
-		Height:    rectangle.Dimensions.Height,
-		Position:  rectangle.Position,
-		Color:     rectangle.Color,
-		CreatedAt: rectangle.CreatedAt,
-		UpdatedAt: rectangle.UpdatedAt,
-	}
+	output := bio.ToOutput(*rectangle)
 
 	return &output, nil
 }
@@ -89,16 +71,7 @@ func (rb *RectangleBoundary) UpdateRectangle(input bio.UpdateRectangleInput) (*b
 		return nil, err
 	}
 
-	output := bio.RectangleOutput{
-		ID:        rectangle.ID,
-		Name:      rectangle.Name,
-		Width:     rectangle.Dimensions.Width,
-		Height:    rectangle.Dimensions.Height,
-		Position:  rectangle.Position,
-		Color:     rectangle.Color,
-		CreatedAt: rectangle.CreatedAt,
-		UpdatedAt: rectangle.UpdatedAt,
-	}
+	output := bio.ToOutput(rectangle)
 
 	return &output, nil
 }
@@ -112,21 +85,11 @@ func (rb *RectangleBoundary) DeleteRectangle(input bio.DeleteRectangleInput) err
 	return nil
 }
 
-// CalculateRectangleArea calculates the area of the rectangle.
-func CalculateRectangleArea(rectangle *entity.Rectangle) float64 {
-	return float64(rectangle.Dimensions.Width * rectangle.Dimensions.Height)
-}
-
-// CalculateRectanglePerimeter calculates the perimeter of the rectangle.
-func CalculateRectanglePerimeter(rectangle *entity.Rectangle) float64 {
-	return float64(2 * (rectangle.Dimensions.Width + rectangle.Dimensions.Height))
-}
-
 // SuccessRectangle is the success output method.
-func (rb *RectangleBoundary) SuccessRectangle(output bio.SuccessRectangleOutput) {
-	fmt.Printf("Rectangle: %+v\n", output.Rectangle)
-	fmt.Printf("Area: %f\n", output.Area)
-	fmt.Printf("Perimeter: %f\n", output.Perimeter)
+func (rb *RectangleBoundary) SuccessRectangle(output bio.RectangleOutput) {
+	// fmt.Printf("Rectangle: %+v\n", output.Rectangle)
+	// fmt.Printf("Area: %f\n", output.Area)
+	// fmt.Printf("Perimeter: %f\n", output.Perimeter)
 }
 
 // ErrorRectangle is the error output method.

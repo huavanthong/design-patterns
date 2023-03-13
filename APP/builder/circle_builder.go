@@ -7,7 +7,8 @@ import (
 
 //
 type ICircleBuilder interface {
-	SetName(name string) ICircleBuilder
+	SetObjectName(objectName string) ICircleBuilder
+	SetOwnerName(ownerName string) ICircleBuilder
 	SetDimensions(dimensions common.Dimensions) ICircleBuilder
 	SetColor(color common.Color) ICircleBuilder
 	SetPosition(position common.Position) ICircleBuilder
@@ -16,7 +17,8 @@ type ICircleBuilder interface {
 }
 
 type CircleBuilder struct {
-	name       string
+	objectName string
+	ownerName  string
 	dimensions common.Dimensions
 	color      common.Color
 	position   common.Position
@@ -25,9 +27,10 @@ type CircleBuilder struct {
 
 // Constructor
 // Ta sẽ đặt tên cho Cirle ngay lập tức khi ta tạo ra nó.
-func NewCircleBuilder(name string) *CircleBuilder {
+func NewCircleBuilder(objectName string) *CircleBuilder {
 	return &CircleBuilder{
-		name:       name,
+		objectName: objectName,
+		ownerName:  "",
 		dimensions: common.Dimensions{},
 		color:      common.Color{},
 		position:   common.Position{},
@@ -40,8 +43,13 @@ func NewCircleBuilder(name string) *CircleBuilder {
 // Các phương thức SetDimensions(), SetColor() và SetPosition()
 // sẽ trả về chính builder struct để có thể gọi tiếp các phương thức khác
 // hoặc để kết hợp các phương thức lại với nhau.
-func (cb *CircleBuilder) SetName(name string) ICircleBuilder {
-	cb.name = name
+func (cb *CircleBuilder) SetObjectName(objectName string) ICircleBuilder {
+	cb.objectName = objectName
+	return cb
+}
+
+func (cb *CircleBuilder) SetOwnerName(ownerName string) ICircleBuilder {
+	cb.ownerName = ownerName
 	return cb
 }
 
@@ -68,7 +76,7 @@ func (cb *CircleBuilder) SetBorderSize(borderSize int) ICircleBuilder {
 // Build: Combine all setting to build a object
 func (cb *CircleBuilder) Build() entity.Circle {
 	circle := entity.Circle{
-		Dimensions: cb.dimensions,
+		Radius:     cb.dimensions.Radius,
 		Color:      cb.color,
 		Position:   cb.position,
 		BorderSize: cb.borderSize,

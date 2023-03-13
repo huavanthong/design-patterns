@@ -6,7 +6,8 @@ import (
 )
 
 type IRectangleBuilder interface {
-	SetName(name string) IRectangleBuilder
+	SetObjectName(objectName string) IRectangleBuilder
+	SetOwnerName(ownerName string) IRectangleBuilder
 	SetDimensions(dimensions common.Dimensions) IRectangleBuilder
 	SetColor(color common.Color) IRectangleBuilder
 	SetPosition(position common.Position) IRectangleBuilder
@@ -15,7 +16,8 @@ type IRectangleBuilder interface {
 }
 
 type RectangleBuilder struct {
-	name       string
+	objectName string
+	ownerName  string
 	dimensions common.Dimensions
 	color      common.Color
 	position   common.Position
@@ -24,9 +26,10 @@ type RectangleBuilder struct {
 
 // Constructor
 // Ta sẽ đặt tên cho Rectangle ngay lập tức khi ta tạo ra nó.
-func NewRectangleBuilder(name string) *RectangleBuilder {
+func NewRectangleBuilder(objectName string) *RectangleBuilder {
 	return &RectangleBuilder{
-		name:       name,
+		objectName: objectName,
+		ownerName:  "",
 		dimensions: common.Dimensions{},
 		color:      common.Color{},
 		position:   common.Position{},
@@ -39,8 +42,13 @@ func NewRectangleBuilder(name string) *RectangleBuilder {
 // Các phương thức SetDimensions(), SetColor() và SetPosition()
 // sẽ trả về chính builder struct để có thể gọi tiếp các phương thức khác
 // hoặc để kết hợp các phương thức lại với nhau.
-func (rb *RectangleBuilder) SetName(name string) IRectangleBuilder {
-	rb.name = name
+func (rb *RectangleBuilder) SetObjectName(objectName string) IRectangleBuilder {
+	rb.objectName = objectName
+	return rb
+}
+
+func (rb *RectangleBuilder) SetOwnerName(ownerName string) IRectangleBuilder {
+	rb.ownerName = ownerName
 	return rb
 }
 
@@ -68,7 +76,8 @@ func (rb *RectangleBuilder) SetBorderSize(borderSize int) IRectangleBuilder {
 // Build: Combine all setting to build a object
 func (rb *RectangleBuilder) Build() entity.Rectangle {
 	rectangle := entity.Rectangle{
-		Dimensions: rb.dimensions,
+		Width:      rb.dimensions.Width,
+		Height:     rb.dimensions.Height,
 		Color:      rb.color,
 		Position:   rb.position,
 		BorderSize: rb.borderSize,

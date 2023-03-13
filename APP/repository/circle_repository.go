@@ -16,13 +16,13 @@ type CircleRepository interface {
 
 // InMemoryCircleRepository is an implementation of RectangleRepository that uses an in-memory store.
 type InMemoryCircleRepository struct {
-	store map[int]*entity.Circle
+	store map[string]*entity.Circle
 }
 
 // NewInMemoryCircleRepository creates a new instance of InMemoryCircleRepository.
 func NewInMemoryCircleRepository() *InMemoryCircleRepository {
 	return &InMemoryCircleRepository{
-		store: make(map[int]*entity.Circle),
+		store: make(map[string]*entity.Circle),
 	}
 }
 
@@ -36,7 +36,7 @@ func (r *InMemoryCircleRepository) Save(circle *entity.Circle) error {
 }
 
 // GetByID retrieves a circle by ID.
-func (r *InMemoryCircleRepository) GetByID(id int) (*entity.Circle, error) {
+func (r *InMemoryCircleRepository) GetByID(id string) (*entity.Circle, error) {
 	if circle, ok := r.store[id]; ok {
 		return circle, nil
 	}
@@ -53,7 +53,7 @@ func (r *InMemoryCircleRepository) Update(circle *entity.Circle) error {
 }
 
 // Delete deletes a circle by ID.
-func (r *InMemoryCircleRepository) Delete(id int) error {
+func (r *InMemoryCircleRepository) Delete(id string) error {
 	if _, ok := r.store[id]; !ok {
 		return errors.New("circle not found")
 	}

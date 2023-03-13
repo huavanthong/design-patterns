@@ -1,41 +1,39 @@
 package boundary_input_output
 
 import (
-	"time"
-
 	"github.com/huavanthong/design-patterns/APP/common"
 	"github.com/huavanthong/design-patterns/APP/entity"
 )
 
 // RectangleOutputBoundary defines the output port for Rectangle.
 type IRectangleOutput interface {
-	SuccessRectangle(output SuccessRectangleOutput)
+	SuccessRectangle(output RectangleOutput)
 	ErrorRectangle(err error)
 }
 
 // RectangleOutput defines the output struct for Rectangle.
 type RectangleOutput struct {
-	ID        string          `json:"id"`
-	Name      string          `json:"name"`
-	Width     float64         `json:"length"`
-	Height    float64         `json:"breadth"`
-	Position  common.Position `json:"position"`
-	Color     common.Color    `json:"color"`
-	CreatedAt time.Time       `json:"created_at"`
-	UpdatedAt time.Time       `json:"updated_at"`
+	ID         string          `json:"id"`
+	ObjectName string          `json:"object_name"`
+	Width      float64         `json:"length"`
+	Height     float64         `json:"breadth"`
+	Position   common.Position `json:"position"`
+	Color      common.Color    `json:"color"`
+	CreatedAt  string          `json:"created_at"`
+	UpdatedAt  string          `json:"updated_at"`
 }
 
 // ToOutput converts a Rectangle entity to a RectangleOutput struct.
-func (r *entity.Rectangle) ToOutput() RectangleOutput {
+func ToOutput(r entity.Rectangle) RectangleOutput {
 	return RectangleOutput{
-		ID:        r.ID,
-		Name:      r.Name,
-		Width:     r.Dimensions.Width,
-		Height:    r.Dimensions.Height,
-		Position:  r.Position,
-		Color:     r.Color,
-		CreatedAt: r.CreatedAt,
-		UpdatedAt: r.UpdatedAt,
+		ID:         r.ID,
+		ObjectName: r.ObjectName,
+		Width:      r.Width,
+		Height:     r.Height,
+		Position:   r.Position,
+		Color:      r.Color,
+		CreatedAt:  r.CreatedAt.Format("2006-01-02 15:04:05"),
+		UpdatedAt:  r.UpdatedAt.Format("2006-01-02 15:04:05"),
 	}
 }
 
