@@ -53,7 +53,7 @@ func (rb *RectangleBoundary) GetRectangle(input bio.GetRectangleInput) (*bio.Rec
 		return nil, err
 	}
 
-	output := bio.ToOutput(*rectangle)
+	output := bio.ToOutput(rectangle)
 
 	return &output, nil
 }

@@ -7,9 +7,9 @@ import (
 
 // RectangleInteractor is an interface for managing rectangles
 type IRectangleInteractor interface {
-	CreateRectangle(rectangle entity.Rectangle) error
+	CreateRectangle(rectangle *entity.Rectangle) error
 	GetRectangleByID(id string) (*entity.Rectangle, error)
-	UpdateRectangle(rectangle entity.Rectangle) error
+	UpdateRectangle(rectangle *entity.Rectangle) error
 	DeleteRectangleByID(id string) error
 }
 
@@ -25,7 +25,7 @@ func NewRectangleInteractor(rectangleRepository repository.RectangleRepository) 
 }
 
 // CreateRectangle creates a new rectangle
-func (ri *rectangleInteractor) CreateRectangle(rectangle entity.Rectangle) error {
+func (ri *rectangleInteractor) CreateRectangle(rectangle *entity.Rectangle) error {
 	return ri.rectangleRepository.Save(rectangle)
 }
 
@@ -35,7 +35,7 @@ func (ri *rectangleInteractor) GetRectangleByID(id string) (*entity.Rectangle, e
 }
 
 // UpdateRectangle updates an existing rectangle
-func (ri *rectangleInteractor) UpdateRectangle(rectangle entity.Rectangle) error {
+func (ri *rectangleInteractor) UpdateRectangle(rectangle *entity.Rectangle) error {
 	return ri.rectangleRepository.Update(rectangle)
 }
 

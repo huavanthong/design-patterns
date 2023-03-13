@@ -23,8 +23,20 @@ type RectangleOutput struct {
 	UpdatedAt  string          `json:"updated_at"`
 }
 
+/*
+Experience 4:
+Chúng ta nên xây dựng hàm ToOutput với kiểu trả về là con trỏ tới RectangleOutput, tức là:
+	| func ToOutput(r *entity.Rectangle) *RectangleOutput
+	thay vì
+	| func ToOutput(r *entity.Rectangle) RectangleOutput
+
+Lý do là khi chúng ta truyền vào một con trỏ *entity.Rectangle, ta muốn thay đổi trực tiếp giá trị của biến *RectangleOutput mà không tạo ra một bản sao mới.
+Nếu trả về một giá trị thực tế là bản sao của RectangleOutput,
+chúng ta sẽ không thể thay đổi giá trị của RectangleOutput ban đầu.
+Tuy nhiên, nếu chúng ta trả về con trỏ *RectangleOutput, ta có thể thay đổi giá trị của biến *RectangleOutput mà không tạo ra một bản sao mới.
+*/
 // ToOutput converts a Rectangle entity to a RectangleOutput struct.
-func ToOutput(r entity.Rectangle) RectangleOutput {
+func ToOutput(r *entity.Rectangle) RectangleOutput {
 	return RectangleOutput{
 		ID:         r.ID,
 		ObjectName: r.ObjectName,

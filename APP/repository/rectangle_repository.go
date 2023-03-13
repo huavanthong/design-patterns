@@ -18,7 +18,8 @@ implementation này.
 **************************************************************************************************************************/
 // RectangleRepository defines the interface for storing and retrieving rectangles.
 type IRectangleRepository interface {
-	Save(rectangle entity.Rectangle)
+	// Experience 1:
+	Save(rectangle *entity.Rectangle)
 	FindByID(ID string) (*entity.Rectangle, error)
 	FindAll() ([]entity.Rectangle, error)
 	Update(rectangle *entity.Rectangle) error
@@ -42,7 +43,7 @@ func NewInMemoryRectangleRepository() *InMemoryRectangleRepository {
 }
 
 /**************************************************************************************************************************
-Question 2: Việc ta xây dựng tất cả method trong một struct được gọi là gì?
+Experience 2: Việc ta xây dựng tất cả method trong một struct được gọi là gì?
 
 Trong Go, việc implement một interface được thực hiện thông qua việc cài đặt các phương thức trong một struct (hoặc bất kỳ
 kiểu dữ liệu nào khác) và đảm bảo rằng tên và kiểu của các phương thức phải khớp với interface đó.
@@ -106,20 +107,40 @@ func NewRectangleRepository() *RectangleRepository {
 	}
 }
 
-func (r *RectangleRepository) Save(rectangle entity.Rectangle) error {
+/*
+Experience 1:
+
+Khi sử dụng func (r *RectangleRepository) Save(rectangle entity.Rectangle),
+Go sẽ sao chép toàn bộ giá trị của entity.Rectangle vào trong một biến mới trong hàm,
+điều này sẽ tốn thêm bộ nhớ để sao chép và giảm hiệu năng của chương trình.
+
+Do đó, chúng ta nên sử dụng
+	==> func (r *RectangleRepository) Save(rectangle *entity.Rectangle)
+thay vì
+	==> func (r *RectangleRepository) Save(rectangle entity.Rectangle)
+
+để tránh tốn thêm bộ nhớ cho việc sao chép. Nếu sử dụng con trỏ, chúng ta chỉ cần truyền địa chỉ của biến đối tượng entity.
+Rectangle vào hàm, và các thay đổi trong hàm sẽ được thể hiện trực tiếp trên đối tượng ban đầu mà không cần sao chép toàn bộ giá trị của đối tượng đó.
+*/
+func (r *RectangleRepository) Save(rectangle *entity.Rectangle) error {
+
+	// Experience 3:
+	// Hàm Save của bạn sử dụng con trỏ đến entity.Rectangle để tránh tạo ra một bản sao không cần thiết của đối tượng,
+	// giúp giảm thiểu lượng bộ nhớ sử dụng.
+	// Hơn nữa, bạn cũng đã sử dụng lock để đảm bảo tính toàn vẹn dữ liệu trong quá trình thực thi của hàm.
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
 	// Check if the rectangle already exists in the slice
 	for i, rect := range r.rectangles {
 		if rect.ID == rectangle.ID {
-			r.rectangles[i] = rectangle
+			r.rectangles[i] = *rectangle
 			return nil
 		}
 	}
 
 	// Add the rectangle to the slice
-	r.rectangles = append(r.rectangles, rectangle)
+	r.rectangles = append(r.rectangles, *rectangle)
 	return nil
 }
 
@@ -149,14 +170,14 @@ func (r *RectangleRepository) FindAll() ([]entity.Rectangle, error) {
 }
 
 // Update updates the given rectangle.
-func (r *RectangleRepository) Update(rectangle entity.Rectangle) error {
+func (r *RectangleRepository) Update(rectangle *entity.Rectangle) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
 	// Check if the rectangle already exists in the slice
 	for i, rect := range r.rectangles {
 		if rect.ID == rectangle.ID {
-			r.rectangles[i] = rectangle
+			r.rectangles[i] = *rectangle
 			return nil
 		}
 	}

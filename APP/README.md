@@ -1,5 +1,5 @@
 # Overview
-
+Để hiểu các kinh nghiệm coding trong việc lập trình trong dự án này. Chúng ta có thể Find all tất cả các kinh nghiệm qua keyword: experience
 # Project Structure
 This is a project structure for overview our architecture
 ```lua

@@ -24,8 +24,8 @@ type CreateRectangleInput struct {
 	Color      common.Color
 }
 
-func (ri *CreateRectangleInput) ToEntity() entity.Rectangle {
-	return entity.Rectangle{
+func (ri *CreateRectangleInput) ToEntity() *entity.Rectangle {
+	return &entity.Rectangle{
 		ID:         common.GenerateUUID(),
 		ObjectName: ri.ObjectName,
 		OwnerName:  ri.OwnerName,
@@ -53,8 +53,8 @@ type UpdateRectangleInput struct {
 	Color      common.Color
 }
 
-func (ri *UpdateRectangleInput) UpdateEntity() entity.Rectangle {
-	return entity.Rectangle{
+func (ri *UpdateRectangleInput) UpdateEntity() *entity.Rectangle {
+	return &entity.Rectangle{
 		ID:         ri.ID,
 		ObjectName: ri.ObjectName,
 		OwnerName:  ri.OwnerName,
