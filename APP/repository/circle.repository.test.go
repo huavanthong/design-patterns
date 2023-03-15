@@ -4,15 +4,16 @@ import (
 	"github.com/huavanthong/design-patterns/APP/common"
 	"github.com/huavanthong/design-patterns/APP/entity"
 
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCircleRepository_Save(t *testing.T) {
 	// Set up test data
 	id := "circle-1"
 	dimension := common.Dimensions{Width: 10, Height: 5, Radius: 0}
-	rect := &entity.Circle{
+	circle := &entity.Circle{
 		ID:         id,
 		ObjectName: "Circle 1",
 		OwnerName:  "Van Thong",
@@ -22,9 +23,9 @@ func TestCircleRepository_Save(t *testing.T) {
 		BorderSize: 1,
 	}
 
-	repo := NewRectangleRepository()
+	repo := NewInMemoryCircleRepository()
 
 	// Test case 1: Valid ID
-	err := repo.Save(rect)
+	err := repo.Save(circle)
 	assert.NoError(t, err)
 }
