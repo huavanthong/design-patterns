@@ -24,7 +24,11 @@ và tránh bao gồm quá nhiều logic trong entity.
 Update:
 	* Đổi Dimensions thành Width, Height để tập trung vào cốt lõi của entity.const
 
-Refer: https://www.meisternote.com/app/note/vvobbMh1NMEZ/cach-d-t-ten-va-data-type
+Refer:
+	* https://www.meisternote.com/app/note/vvobbMh1NMEZ/cach-d-t-ten-va-data-type
+
+CommitID:
+	* cb1da2e8a84a09d7bb2de065da1094ea0067948d
 */
 type Rectangle struct {
 	ID         string          `json:"id"`

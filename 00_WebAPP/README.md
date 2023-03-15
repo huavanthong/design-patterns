@@ -1,38 +1,53 @@
 # Overview
-Để hiểu các kinh nghiệm coding trong việc lập trình trong dự án này. Chúng ta có thể Find all tất cả các kinh nghiệm qua keyword: experience
+After we've done for implementing the shape application running your local machine, we start migrating the application from local to web app.  
+This is a project to demo your application can run through HTTP.
 # Project Structure
 This is a project structure for overview our architecture
 ```lua
-├── common/
-│   ├── common.go
-├── entity/
-│   ├── rectangle.go
-│   └── circle.go
-│
-├── boundary/
-│   ├── io/
-│   │   ├── rectangle_input.go
-│   │   ├── rectangle_output.go
-│   │   ├── circle_input.go
-│   │   └── circle_output.go
-│   ├── rectangle_boundary.go
-│   └── circle_boundary.go
-│
-├── interactor/
-│   ├── rectangle_interactor.go
-│   └── circle_interactor.go
-│
-├── builder/
-│   ├── shape_builder.go
-│   ├── rectangle_builder.go
-│   └── circle_builder.go
-│
-├── repository/
-│   ├── rectangle_repository.go
-│   └── circle_repository.go
-│
+├── cmd/
+│   └── main.go
+├── internal/
+│   ├── app/
+│   │   ├── usecase/
+│   │   │   ├── shape.go
+│   │   │   ├── rectangle.go
+│   │   │   └── circle.go
+│   │   ├── entity/
+│   │   │   ├── shape.go
+│   │   │   ├── rectangle.go
+│   │   │   └── circle.go
+│   │   ├── repository/
+│   │   │   ├── shape_repository.go
+│   │   │   ├── rectangle_repository.go
+│   │   │   └── circle_repository.go
+│   │   ├── service/
+│   │   │   ├── shape_service.go
+│   │   │   ├── rectangle_service.go
+│   │   │   └── circle_service.go
+│   │   ├── handler/
+│   │   │   ├── shape_handler.go
+│   │   │   ├── rectangle_handler.go
+│   │   │   └── circle_handler.go
+│   │   ├── builder/
+│   │   │   ├── shape_builder.go
+│   │   │   ├── rectangle_builder.go
+│   │   │   └── circle_builder.go
+│   │   └── config/
+│   │       ├── config.go
+│   │       ├── database.go
+│   │       ├── logger.go
+│   │       └── router.go
+│   └── pkg/
+│       └── util/
+│           ├── util.go
+│           ├── string_util.go
+│           ├── time_util.go
+│           └── ...
+├── vendor/
 ├── go.mod
-└── main.go
+├── go.sum
+└── Dockerfile
+
 ```
 Project Structure là một kiến trúc phần mềm theo mô hình Clean Architecture. Nó được chia thành các lớp phân tách với nhau nhằm đảm bảo tính rõ ràng và dễ bảo trì.
 
