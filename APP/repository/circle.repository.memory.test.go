@@ -26,6 +26,6 @@ func TestCircleRepository_Save(t *testing.T) {
 	repo := NewInMemoryCircleRepository()
 
 	// Test case 1: Valid ID
-	err := repo.Save(circle)
+	err := repo.Create(circle)
 	assert.NoError(t, err)
 }

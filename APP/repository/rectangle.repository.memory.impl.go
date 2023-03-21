@@ -8,21 +8,8 @@ import (
 	"github.com/huavanthong/design-patterns/APP/entity"
 )
 
-/************************************ Repository in memory ******************************************/
-// InMemoryRectangleRepository is an implementation of RectangleRepository that uses an in-memory store.
-type InMemoryRectangleRepository struct {
-	store map[int]*entity.Rectangle
-}
-
-// NewInMemoryRectangleRepository creates a new instance of InMemoryRectangleRepository.
-func NewInMemoryRectangleRepository() *InMemoryRectangleRepository {
-	return &InMemoryRectangleRepository{
-		store: make(map[int]*entity.Rectangle),
-	}
-}
-
 /**************************************************************************************************************************
-Experience 2: Việc ta xây dựng tất cả method trong một struct được gọi là gì?
+Experience 2: Implement all interface
 
 Trong Go, việc implement một interface được thực hiện thông qua việc cài đặt các phương thức trong một struct (hoặc bất kỳ
 kiểu dữ liệu nào khác) và đảm bảo rằng tên và kiểu của các phương thức phải khớp với interface đó.
@@ -38,72 +25,37 @@ thực hiện interface RectangleRepository. Việc thực hiện interface này
 
 Khi bạn sử dụng một đối tượng của InMemoryRectangleRepository trong mã của mình, bạn có thể đối xử với nó như với một
 RectangleRepository, và gọi các phương thức Save, GetByID, Update, và Delete như bạn mong muốn.
-**************************************************************************************************************************/
-// Save stores the given rectangle.
-// func (r *InMemoryRectangleRepository) Save(rectangle *entity.Rectangle) error {
-// 	if _, ok := r.store[rectangle.ID]; ok {
-// 		return errors.New("rectangle already exists")
-// 	}
-// 	r.store[rectangle.ID] = rectangle
-// 	return nil
-// }
-
-// // GetByID retrieves a rectangle by ID.
-// func (r *InMemoryRectangleRepository) GetByID(id int) (*entity.Rectangle, error) {
-// 	if rectangle, ok := r.store[id]; ok {
-// 		return rectangle, nil
-// 	}
-// 	return nil, errors.New("rectangle not found")
-// }
-
-// // Update updates the given rectangle.
-// func (r *InMemoryRectangleRepository) Update(rectangle *entity.Rectangle) error {
-// 	if _, ok := r.store[rectangle.ID]; !ok {
-// 		return errors.New("rectangle not found")
-// 	}
-// 	r.store[rectangle.ID] = rectangle
-// 	return nil
-// }
-
-// // Delete deletes a rectangle by ID.
-// func (r *InMemoryRectangleRepository) Delete(id int) error {
-// 	if _, ok := r.store[id]; !ok {
-// 		return errors.New("rectangle not found")
-// 	}
-// 	delete(r.store, id)
-// 	return nil
-// }
 
 /************************************ Repository PostgreSQL ******************************************/
-type RectangleRepository struct {
+type InMemoryRectangleRepository struct {
 	mu         sync.Mutex
 	rectangles []entity.Rectangle
 }
 
-func NewRectangleRepository() *RectangleRepository {
-	return &RectangleRepository{
+func NewInMemoryRectangleRepository() *InMemoryRectangleRepository {
+	return &InMemoryRectangleRepository{
 		rectangles: []entity.Rectangle{},
 	}
 }
 
 /*
-Experience 1:
+Experience 1: Experience in using pointer and variable in Go
 
-Khi sử dụng func (r *RectangleRepository) Save(rectangle entity.Rectangle),
+Khi sử dụng func (r *InMemoryRectangleRepository) Save(rectangle entity.Rectangle),
 Go sẽ sao chép toàn bộ giá trị của entity.Rectangle vào trong một biến mới trong hàm,
 điều này sẽ tốn thêm bộ nhớ để sao chép và giảm hiệu năng của chương trình.
 
 Do đó, chúng ta nên sử dụng
-	==> func (r *RectangleRepository) Save(rectangle *entity.Rectangle)
+	==> func (r *InMemoryRectangleRepository) Save(rectangle *entity.Rectangle)
 thay vì
-	==> func (r *RectangleRepository) Save(rectangle entity.Rectangle)
+	==> func (r *InMemoryRectangleRepository) Save(rectangle entity.Rectangle)
 
 để tránh tốn thêm bộ nhớ cho việc sao chép. Nếu sử dụng con trỏ, chúng ta chỉ cần truyền địa chỉ của biến đối tượng entity.
 Rectangle vào hàm, và các thay đổi trong hàm sẽ được thể hiện trực tiếp trên đối tượng ban đầu mà không cần sao chép toàn bộ giá trị của đối tượng đó.
 */
-func (r *RectangleRepository) Save(rectangle *entity.Rectangle) error {
+func (r *InMemoryRectangleRepository) Save(rectangle *entity.Rectangle) error {
 
-	// Experience 3:
+	// Experience 3: Synchronize data
 	// Hàm Save của bạn sử dụng con trỏ đến entity.Rectangle để tránh tạo ra một bản sao không cần thiết của đối tượng,
 	// giúp giảm thiểu lượng bộ nhớ sử dụng.
 	// Hơn nữa, bạn cũng đã sử dụng lock để đảm bảo tính toàn vẹn dữ liệu trong quá trình thực thi của hàm.
@@ -123,7 +75,7 @@ func (r *RectangleRepository) Save(rectangle *entity.Rectangle) error {
 	return nil
 }
 
-func (r *RectangleRepository) FindByID(ID string) (*entity.Rectangle, error) {
+func (r *InMemoryRectangleRepository) FindByID(ID string) (*entity.Rectangle, error) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
@@ -137,7 +89,7 @@ func (r *RectangleRepository) FindByID(ID string) (*entity.Rectangle, error) {
 	return nil, errors.New("rectangle not found")
 }
 
-func (r *RectangleRepository) FindAll() ([]entity.Rectangle, error) {
+func (r *InMemoryRectangleRepository) FindAll() ([]entity.Rectangle, error) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
@@ -149,7 +101,7 @@ func (r *RectangleRepository) FindAll() ([]entity.Rectangle, error) {
 }
 
 // Update updates the given rectangle.
-func (r *RectangleRepository) Update(rectangle *entity.Rectangle) error {
+func (r *InMemoryRectangleRepository) Update(rectangle *entity.Rectangle) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
@@ -164,7 +116,7 @@ func (r *RectangleRepository) Update(rectangle *entity.Rectangle) error {
 	return errors.New("rectangle not found")
 }
 
-func (r *RectangleRepository) DeleteByID(ID string) error {
+func (r *InMemoryRectangleRepository) DeleteByID(ID string) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
@@ -186,7 +138,7 @@ func (r *RectangleRepository) DeleteByID(ID string) error {
 	return nil
 }
 
-func (r *RectangleRepository) DeleteAll() error {
+func (r *InMemoryRectangleRepository) DeleteAll() error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
@@ -195,7 +147,7 @@ func (r *RectangleRepository) DeleteAll() error {
 	return nil
 }
 
-func (r *RectangleRepository) FindByDimensions(width, height float64) ([]entity.Rectangle, error) {
+func (r *InMemoryRectangleRepository) FindByDimensions(width, height float64) ([]entity.Rectangle, error) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
@@ -210,7 +162,7 @@ func (r *RectangleRepository) FindByDimensions(width, height float64) ([]entity.
 	return rectangles, nil
 }
 
-func (r *RectangleRepository) FindByCreatedAt(start, end time.Time) ([]entity.Rectangle, error) {
+func (r *InMemoryRectangleRepository) FindByCreatedAt(start, end time.Time) ([]entity.Rectangle, error) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 

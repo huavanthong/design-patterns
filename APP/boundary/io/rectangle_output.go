@@ -24,7 +24,7 @@ type RectangleOutput struct {
 }
 
 /*
-Experience 4:
+Experience 3: Experience in using pointer and variable
 Chúng ta nên xây dựng hàm ToOutput với kiểu trả về là con trỏ tới RectangleOutput, tức là:
 	| func ToOutput(r *entity.Rectangle) *RectangleOutput
 	thay vì

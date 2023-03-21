@@ -18,7 +18,7 @@ type Shape interface {
 }
 
 /* Experience 6: SOLID principle
-guyên lý Thay thế Liskov phát biểu như sau:
+Nguyên lý Thay thế Liskov phát biểu như sau:
 “Lớp D được gọi là kế thừa từ lớp B khi và chỉ khi với mọi hàm F thao tác trên các đối tượng của B,
 cách cư xử (behavior) của F không đổi khi thay thế các đối tượng của B bằng các đối tượng của D”.
 

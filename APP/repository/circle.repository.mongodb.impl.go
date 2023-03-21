@@ -18,7 +18,7 @@ func NewMongoDBCircleRepository(collection *mongo.Collection) *MongoDBCircleRepo
 	}
 }
 
-func (repo *MongoDBCircleRepository) Save(circle *entity.Circle) error {
+func (repo *MongoDBCircleRepository) Create(circle *entity.Circle) error {
 	_, err := repo.collection.InsertOne(context.Background(), circle)
 	if err != nil {
 		return err

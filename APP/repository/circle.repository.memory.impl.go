@@ -19,7 +19,7 @@ func NewInMemoryCircleRepository() *InMemoryCircleRepository {
 }
 
 // Save stores the given circle.
-func (r *InMemoryCircleRepository) Save(circle *entity.Circle) error {
+func (r *InMemoryCircleRepository) Create(circle *entity.Circle) error {
 	if _, ok := r.store[circle.ID]; ok {
 		return errors.New("circle already exists")
 	}
