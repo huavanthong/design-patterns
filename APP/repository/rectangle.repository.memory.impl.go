@@ -53,7 +53,7 @@ thay vì
 để tránh tốn thêm bộ nhớ cho việc sao chép. Nếu sử dụng con trỏ, chúng ta chỉ cần truyền địa chỉ của biến đối tượng entity.
 Rectangle vào hàm, và các thay đổi trong hàm sẽ được thể hiện trực tiếp trên đối tượng ban đầu mà không cần sao chép toàn bộ giá trị của đối tượng đó.
 */
-func (r *InMemoryRectangleRepository) Save(rectangle *entity.Rectangle) error {
+func (r *InMemoryRectangleRepository) Create(rectangle *entity.Rectangle) error {
 
 	// Experience 3: Synchronize data
 	// Hàm Save của bạn sử dụng con trỏ đến entity.Rectangle để tránh tạo ra một bản sao không cần thiết của đối tượng,
@@ -75,7 +75,7 @@ func (r *InMemoryRectangleRepository) Save(rectangle *entity.Rectangle) error {
 	return nil
 }
 
-func (r *InMemoryRectangleRepository) FindByID(ID string) (*entity.Rectangle, error) {
+func (r *InMemoryRectangleRepository) GetByID(ID string) (*entity.Rectangle, error) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
@@ -87,17 +87,6 @@ func (r *InMemoryRectangleRepository) FindByID(ID string) (*entity.Rectangle, er
 	}
 
 	return nil, errors.New("rectangle not found")
-}
-
-func (r *InMemoryRectangleRepository) FindAll() ([]entity.Rectangle, error) {
-	r.mu.Lock()
-	defer r.mu.Unlock()
-
-	// Return a copy of the slice to avoid race conditions
-	rectangles := make([]entity.Rectangle, len(r.rectangles))
-	copy(rectangles, r.rectangles)
-
-	return rectangles, nil
 }
 
 // Update updates the given rectangle.
@@ -136,6 +125,17 @@ func (r *InMemoryRectangleRepository) DeleteByID(ID string) error {
 	// Remove the rectangle from the slice
 	r.rectangles = append(r.rectangles[:index], r.rectangles[index+1:]...)
 	return nil
+}
+
+func (r *InMemoryRectangleRepository) FindAll() ([]entity.Rectangle, error) {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+
+	// Return a copy of the slice to avoid race conditions
+	rectangles := make([]entity.Rectangle, len(r.rectangles))
+	copy(rectangles, r.rectangles)
+
+	return rectangles, nil
 }
 
 func (r *InMemoryRectangleRepository) DeleteAll() error {

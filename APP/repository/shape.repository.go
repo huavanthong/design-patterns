@@ -14,8 +14,8 @@ Qua đó, chúng ta đứng từ lớp cao nhất. Và cung cấp các phương 
 */
 type ShapeRepository interface {
 	// Experience 1: Experience in using pointer and variable in Go
-	Create(shape *entity.Shape)
-	GetByID(id string) ([]entity.Shape, error)
+	Create(shape *entity.Shape) error
+	GetByID(id string) (entity.Shape, error)
 	Update(shape *entity.Shape) error
 	DeleteByID(ID string) error
 }

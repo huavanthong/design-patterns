@@ -58,7 +58,7 @@ type RectangleSearchRepository interface {
 */
 type RectangleRepository interface {
 	// Experience 1: Experience in using pointer and variable
-	Create(rectangle *entity.Rectangle)
+	Create(rectangle *entity.Rectangle) error
 	GetByID(id string) ([]entity.Rectangle, error)
 	Update(rectangle *entity.Rectangle) error
 	DeleteByID(ID string) error

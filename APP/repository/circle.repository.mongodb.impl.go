@@ -26,7 +26,7 @@ func (repo *MongoDBCircleRepository) Create(circle *entity.Circle) error {
 	return nil
 }
 
-func (repo *MongoDBCircleRepository) GetByID(id int) (*entity.Circle, error) {
+func (repo *MongoDBCircleRepository) GetByID(id string) (*entity.Circle, error) {
 	var circle entity.Circle
 	err := repo.collection.FindOne(context.Background(), bson.M{"id": id}).Decode(&circle)
 	if err != nil {
@@ -43,7 +43,7 @@ func (repo *MongoDBCircleRepository) Update(circle *entity.Circle) error {
 	return nil
 }
 
-func (repo *MongoDBCircleRepository) Delete(id int) error {
+func (repo *MongoDBCircleRepository) Delete(id string) error {
 	_, err := repo.collection.DeleteOne(context.Background(), bson.M{"id": id})
 	if err != nil {
 		return err

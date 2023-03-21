@@ -45,7 +45,7 @@ func (r *InMemoryCircleRepository) Update(circle *entity.Circle) error {
 }
 
 // Delete deletes a circle by ID.
-func (r *InMemoryCircleRepository) Delete(id string) error {
+func (r *InMemoryCircleRepository) DeleteByID(id string) error {
 	if _, ok := r.store[id]; !ok {
 		return errors.New("circle not found")
 	}
