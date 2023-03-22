@@ -28,7 +28,7 @@ func NewRectangleRepository(db *gorm.DB) RectangleRepository {
 	return &rectangleRepository{db}
 }
 
-func (repo *rectangleRepository) Save(rectangle *entity.Rectangle) error {
+func (repo *rectangleRepository) Create(rectangle *entity.Rectangle) error {
 	return repo.db.Save(rectangle).Error
 }
 
