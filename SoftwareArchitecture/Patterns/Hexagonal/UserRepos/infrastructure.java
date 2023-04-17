@@ -1,5 +1,5 @@
 // Infrastructure package
-package com.example.hexagonalarchitecture.infrastructure;
+package SoftwareArchitecture.Patterns.Hexagonal.UserRepos;
 
 import com.example.hexagonalarchitecture.domain.User;
 import com.example.hexagonalarchitecture.domain.UserRepository;

@@ -21,6 +21,23 @@ import (
 )
 
 // Test inheritance for method GetArea for all shapes
+func TestShape_GetAreaRectangleFromShape(t *testing.T) {
+	// Set up test data
+	shape := []Shape{
+		Rectangle{Width: 3, Height: 4},
+	}
+
+	// Define expected results
+	expected := float64(12)
+
+	result := shape.GetArea()
+	if result != expected[i] {
+		t.Errorf("Shape %d: expected area %f but got %f", i+1, expected[i], result)
+	}
+
+}
+
+// Test inheritance for method GetArea for all shapes
 func TestShape_GetArea(t *testing.T) {
 	// Set up test data
 	shapes := []Shape{
